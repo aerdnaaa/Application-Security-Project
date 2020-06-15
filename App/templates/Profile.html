@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block header %}
+<style>
+    h1 {
+        margin: 20px;
+    }
+    #basic-information {
+        float: left;
+        margin: 20px 0px 0px 50px;
+        width: 700px;
+    }
+    .list-group {
+        float: left;
+        margin-left: 20px;
+        margin-top: 20px;
+        width: 250px;
+    }
+    #save-button {
+        float: right;
+        display: none;
+    }
+    #password-alert {
+        display: none;
+    }
+    #error-message {
+        display: none;
+    }
+    #reset-password {
+        display: none;
+    }
+    #username-alert {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formhelper.html" import render_field %}
+
+<body>
+    <br>
+    <h1>Profile</h1>
+    <hr>
+
+<div class="list-group">
+    <a href="#" type="button" class="list-group-item list-group-item-action active">Basic Information</a>
+    <a href="#" type="button" class="list-group-item list-group-item-action">Orders</a>
+    <a href="#" type="button" class="list-group-item list-group-item-action">Addresses</a>
+    <a href="#" type="button" class="list-group-item list-group-item-action">Payment Options</a>
+</div>
+
+<div id="basic-information">
+    <form id="details-form" method="post">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" value="test" name="username" disabled>
+        </div>   
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="text" class="form-control" id="email" value="test@gmail.com" name="email" disabled>
+      </div>
+    </form>
+    <button id="save-button" type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-primary" id="change-password-button" data-toggle="modal" data-target="#exampleModal">Change Password</button>
+</div>
+
+{% endblock %}
+

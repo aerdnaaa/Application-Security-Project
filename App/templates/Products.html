@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/Products.css')}}">
+<style>
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon {
+  visibility: hidden;
+  cursor: pointer;
+} 
+
+/* Top left text */
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 25px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formhelper.html" import render_field %}
+ 
+<div>
+<div id="mySidenav" class="sidenav" style='background-color:white;'>
+    <a href="javascript:void(0)" style='margin-top:56px;'class="closebtn" onclick="closeNav()">&times;</a>
+    <section style="margin:20px;">
+    <h2>Search Bar</h2>
+    
+    <form action="" method='POST'>
+      <div class="input-group w-100">
+        <input type="text" class='form-control'>
+        <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+        </div>
+      </div>
+    </form>
+    </section>
+    <hr>
+    <section style="padding:20px;">
+    </section>
+    <hr>
+    <section style="padding:20px;">
+        <h4>Product Categories</h4>
+            <div class="form-check">
+              <div class="form-check">
+                <a class='nav-link'href="#">
+                    Barbell
+                </a>
+              </div>
+              <div class="form-check">
+                  <a class='nav-link'href="#">
+                      Racks
+                  </a>
+              </div>
+              <div class="form-check">
+                <a class='nav-link' href="#">
+                    Bench
+                </a c>
+              </div>
+  
+              <div class="form-check">
+                <a class='nav-link'href="#">
+                    Plates
+                </a>
+              </div>
+            </div>
+    </section>
+  </div>
+  <div class="js-off-canvas-overlay is-overlay-fixed is-visible is-closable"></div>
+
+</div>
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <div id="main">
+      <h1 class="my-4" style="text-align: center; font-size: 60px;">All Products</h1>
+      <a href="#" onclick="openNav()" style="text-decoration: none; color: black;" id="filter"><i class="fas fa-bars"></i>&nbsp;Filter</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      
+      <br>
+      <br> 
+
+    <div id="content" class="row">
+      <!-- test -->
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="d-block mb-4 h-100" onmouseover="display(this);" onmouseout="hide(this);">
+            <img class="img-fluid" src="/static/img/jersy.jfif">
+              <div class="centered">
+                <a href="#" title="Add to Shopping Cart"><i class="fas fa-shopping-cart fa-2x icon" style="color:black;"></i></a> &nbsp; &nbsp; 
+                <a data-toggle="modal" data-target="#" title="View"><i class="fas fa-eye fa-2x icon" style="color:black;"></i></a>
+              </div>
+              <h6 style="text-align: center;"><strong>China Jersey</strong></h6>
+              <h6 style="text-align: center;">$50.00</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Button trigger modal -->
+
+    <script>
+          /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+          function openNav() {
+          document.getElementById("mySidenav").style.width = "325px";
+          document.getElementById("main").style.padding = "20px";
+          document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+          }
+
+          /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+          function closeNav() {
+          document.getElementById("mySidenav").style.width = "0";
+          document.getElementById("main").style.marginLeft = "0";
+          document.body.style.backgroundColor = "white";
+          }
+          function closeNavbody(){
+          document.getElementById("mySidenav").style.width = "0";
+          document.getElementById("main").style.marginLeft = "0";
+          document.body.style.backgroundColor = "white";
+          }
+
+    </script>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+function display(icon){
+    icon.children[1].children[0].children[0].style.visibility='visible'; 
+    icon.children[1].children[1].children[0].style.visibility='visible';
+    icon.children[0].style.opacity = "0.4";
+
+    icon.children[1].children[0].children[0].setAttribute('class', "fas fa-shopping-cart fa-2x icon animated fadeInUp"); 
+    icon.children[1].children[1].children[0].setAttribute('class', "fas fa-eye fa-2x icon animated fadeInUp");
+  }
+  function hide(icon){
+    icon.children[1].children[0].children[0].style.visibility='hidden'; 
+    icon.children[1].children[1].children[0].style.visibility='hidden';
+    icon.children[0].style.opacity = "1";
+
+    icon.children[1].children[0].children[0].setAttribute('class', "fas fa-shopping-cart fa-2x icon"); 
+    icon.children[1].children[1].children[0].setAttribute('class', "fas fa-eye fa-2x icon");
+  }
+</script>
+{% endblock %}
