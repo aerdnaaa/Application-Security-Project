@@ -1,6 +1,7 @@
 from flask import render_template, url_for, request, redirect, flash
 from App.web.Forms import Register, ContactUs, SignIn, SearchForm
 from App import app
+import sqlite3
 
 
 @app.route("/")
@@ -43,21 +44,29 @@ def bySold_key(obj):
 def admin():
     return render_template("Admin.html")
 #===========================================================================================================#
-@app.route("/Register", methods=["GET", "POST"])
+@app.route("/Register", methods=["GET","POST"])
 def register():
     register = Register(request.form)
     if request.method == "POST":
         conn = sqlite3.connect("storage.db")
         c = conn.cursor()
+        # c.execute("INSERT INTO users VALUES ({}, '{}', {})".format(register.username.data, register.email.data, register.password.data))
+        c.execute("INSERT INTO users VALUES ({}, '{}', {})".format('test', 'test@test.com', 'password'))
+        conn.commit()
+        conn.close()
+    return render_template("Register.html", form=register)
+
+@app.route("/SignIn", methods=["GET","POST"])
+def signin():
+    signin = SignIn(request.form)
+    if request.method == "POST":
+        conn = sqlite3.connect("storage.db")
+        c = conn.cursor()
+        # Weak Code (not validating user input)
         c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
         conn.commit()
         user = c.fetchone()
         conn.close()
-        print(user)
-    return render_template("Register.html", form=register)
-
-@app.route("/SignIn", methods=["GET", "POST"])
-def signin():
-    signin = SignIn(request.form)
+        return redirect(url_for('Profile'))
     return render_template("SignIn.html", form=signin)
 
