@@ -46,6 +46,14 @@ def admin():
 @app.route("/Register", methods=["GET", "POST"])
 def register():
     register = Register(request.form)
+    if request.method == "POST":
+        conn = sqlite3.connect("storage.db")
+        c = conn.cursor()
+        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
+        conn.commit()
+        user = c.fetchone()
+        conn.close()
+        print(user)
     return render_template("Register.html", form=register)
 
 @app.route("/SignIn", methods=["GET", "POST"])
