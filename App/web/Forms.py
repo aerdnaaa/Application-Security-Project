@@ -8,8 +8,8 @@ class Register(Form):
     password = PasswordField("Password", [validators.Length(min=8, max=150), validators.InputRequired()])
 
 class SignIn(Form):
-    username = StringField("Username", [validators.InputRequired(), validators.Length(min=1, max=150)])
-    password = PasswordField("Password", [validators.Length(min=8, max=150), validators.InputRequired()])
+    username = StringField("Username", [validators.InputRequired()])
+    password = PasswordField("Password", [validators.InputRequired()])
 
 class ContactUs(Form):
     name = StringField('Name', [validators.Length(max=50), validators.InputRequired()])

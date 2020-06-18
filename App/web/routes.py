@@ -24,33 +24,66 @@ def load_user(user_id):
 #============================================= Sign in/ Register ===============================================#
 @app.route("/Register", methods=["GET", "POST"])
 def register():
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
     register = Register(request.form)
-    if request.method == "POST":
+    if request.method == "POST" and register.validate():
         conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
         c = conn.cursor()
+        # Weak code (Not validating user input)
         c.execute("INSERT INTO users VALUES ('{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data))
         conn.commit()
         conn.close()
-    return render_template("Register.html", form=register)
+        return redirect(url_for('signin'))
+    return render_template("Register.html", user=user, form=register)
 
 @app.route("/Signin", methods=["GET", "POST"])
 def signin():
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
+    print(current_user)
     signin = SignIn(request.form)
-    if request.method == "POST":
+    if request.method == "POST" and signin.validate():
         conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
         c = conn.cursor()
+        # Weak code (Not validating user input)
+        # POSSIBLE ATTACKS
+        # ' or 1=1-- (login to admin account)
+        # user'-- (login to any account)
+        # ' or rowid=1-- (login to any account)
         c.execute("SELECT rowid, * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
         conn.commit()
         user = c.fetchone()
+
+        # Weak Code (disclosing too much information)
+        if user == None:
+            if c.execute("SELECT * FROM users WHERE username='{}'".format(signin.username.data)).fetchone() != None:
+                flash("Incorrect password")
+            else:
+                flash("Incorrect username")
+
+        elif user[1] == "Admin":
+            userObj = User(user[0], user[1], user[2], user[3])
+            print(user)
+            login_user(userObj)
+            return redirect(url_for('admin'))
+
+        else:
+            userObj = User(user[0], user[1], user[2], user[3])
+            print(user)
+            login_user(userObj)
+            return redirect(url_for('home'))
         conn.close()
-        userObj = User(user[0], user[1], user[2], user[3])
-        print(user)
-        login_user(userObj)
-        return redirect(url_for('Profile'))
-    return render_template("SignIn.html", form=signin)
+    return render_template("SignIn.html", user=user, form=signin)
 
 @app.route('/logout')
-@login_required
+# @login_required
 def logout():
     logout_user()
     print('User logged out')
@@ -60,36 +93,71 @@ def logout():
 @app.route("/")
 @app.route("/Home")
 def home():
-    return render_template("Home.html")
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
+    return render_template("Home.html", user=user)
 
 @app.route("/ShoppingCart", methods=["GET", "POST"])
 def ShoppingCart():
-    return render_template("ShoppingCart.html")
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
+    return render_template("ShoppingCart.html", user=user)
 
 
 @app.route("/Products", methods=['POST', 'GET'])
 def Products():
-        return render_template("Products.html")
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
+    return render_template("Products.html", user=user)
 
 @app.route("/About")
 def About():
-    return render_template("About.html")
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
+    return render_template("About.html", user=user)
 
 @app.route("/FAQ")
 def FAQ():
-    return render_template("FAQ.html")
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
+    return render_template("FAQ.html", user=user)
 
 @app.route("/Emailus", methods =["GET", "POST"])
 def emailus():
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
     contactUsForm = ContactUs(request.form)
-    return render_template("Emailus.html", form=contactUsForm)
+    return render_template("Emailus.html", user=user, form=contactUsForm)
 
 #============================================= Profile Page =============================================#
 @app.route("/Profile", methods=["GET", "POST"])
 @login_required
 def Profile():
-    currentUser = current_user
-    return render_template("Profile.html", currentUser=currentUser)
+    try:
+        current_user.get_username()
+        user = current_user
+    except:
+        user = None
+
+    return render_template("Profile.html", user=user)
 #============================================= Admin Dashboard =============================================#
 #Get key to sort products
 def bySold_key(obj):

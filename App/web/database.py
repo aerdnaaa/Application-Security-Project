@@ -14,24 +14,26 @@ c = conn.cursor()
 #     email text,
 #     password text
 #     )""")
-# Commit command
 # conn.commit()
-
 # conn.close()
 
 # Insert Row
-# email = 'john@mail.com'
-# c.execute("INSERT INTO users VALUES ('JohnDoe', '{}','password')".format(email))
-# c.execute("INSERT INTO users VALUES ('Mary', 'password1')")
+# c.execute("INSERT INTO users VALUES ('Admin', 'Admin@mail.com','password')")
+# c.execute("INSERT INTO users VALUES ('JohnDoe', 'John@mail.com','password')")
+# c.execute("INSERT INTO users VALUES ('Mary', 'Mary@mail.com', 'password1')")
 # conn.commit()
-# print('done')
+# conn.close()
+
+# Drop Table
+# c.execute("DROP TABLE users")
+# conn.commit()
+# conn.close()
 
 # Query DB
-c.execute("SELECT * FROM users")
-print(c.fetchall())
+# c.execute("SELECT * FROM users")
+# print(c.fetchall())
+# conn.close()
 
 # c.execute("SELECT * FROM users WHERE username='Mary' ")
 # print(c.fetchone())
-
-# Close command
-conn.close()
+# conn.close()
