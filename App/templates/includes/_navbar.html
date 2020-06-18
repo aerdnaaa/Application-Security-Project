@@ -4,7 +4,7 @@
     </button>
 
     <div class="collapse navbar-collapse navbar-content " id="navbarSupportedContent">
-      <a class="navbar-brand" href="/Home">B&P</a>
+      <a class="navbar-brand" href="/Home">INDIRECT</a>
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="/Home">Home</a>
@@ -28,17 +28,26 @@
         <li class="nav-item">
           <a class="nav-link" href="/ShoppingCart"><i class="fas fa-shopping-basket fa-lg"></i><span class="badge badge-danger navbar-badge">{{quantity}}</span></a> 
         </li>
-<!--         
-        <li class="nav-item">
-          <a class="nav-link" href="/Profile"><i class="far fa-user-circle fa-lg"></i>&nbsp;Welcome!</a>
+     
+        {% if user != None %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="far fa-user-circle fa-lg"></i>&nbsp;Welcome {{user.get_username()}}!
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/Profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Profile</a>
+            <a class="dropdown-item" href="#"><i class="fa fa-truck" aria-hidden="true"></i>&nbsp;Orders</a>
+            <a class="dropdown-item" href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Addresses</a>
+            <a class="dropdown-item" href="#"><i class="fa fa-credit-card"></i>&nbsp;&nbsp;Payment</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Sign Out</a>
+          </div>
         </li>
+        {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="/SignOut"><i class="fas fa-sign-out-alt"></i></a>
+          <a class="nav-link" href="/Signin"><i class="far fa-user-circle fa-lg"></i></a>
         </li>
-         -->
-        <li class="nav-item">
-          <a class="nav-link" href="/SignIn"><i class="far fa-user-circle fa-lg"></i></a>
-        </li>
+        {% endif %}
 
       </ul>
     </div>
