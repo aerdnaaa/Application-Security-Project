@@ -18,7 +18,7 @@ def load_user(user_id):
     conn.commit()
     user = c.fetchone()
     conn.close()
-    userObj = User(user[0], user[1], user[2], user[3])
+    userObj = User(user[0], user[1], user[2], user[3], user[4], user[5])
     return userObj
 
 #============================================= Sign in/ Register ===============================================#
@@ -34,7 +34,7 @@ def register():
         conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
         c = conn.cursor()
         # Weak code (Not validating user input)
-        c.execute("INSERT INTO users VALUES ('{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data))
+        c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data, register.question.data, register.answer.data))
         conn.commit()
         conn.close()
         return redirect(url_for('signin'))
@@ -69,13 +69,13 @@ def signin():
                 flash("Incorrect username")
 
         elif user[1] == "Admin":
-            userObj = User(user[0], user[1], user[2], user[3])
+            userObj = User(user[0], user[1], user[2], user[3], user[4], user[5])
             print(user)
             login_user(userObj)
             return redirect(url_for('admin'))
 
         else:
-            userObj = User(user[0], user[1], user[2], user[3])
+            userObj = User(user[0], user[1], user[2], user[3], user[4], user[5])
             print(user)
             login_user(userObj)
             return redirect(url_for('home'))
