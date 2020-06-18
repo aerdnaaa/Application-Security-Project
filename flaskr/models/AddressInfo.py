@@ -1,6 +1,14 @@
 import uuid, shelve
 
+
 class AddressObj:
+
+    def __init__(self, name, address, postal):
+        self.set_id()
+        self.__name = name
+        self.__address = address
+        self.__postal = postal
+
     def set_id(self):
         while True:
             id = str(uuid.uuid4())
@@ -9,12 +17,6 @@ class AddressObj:
             else:
                 break
         self.__id = id
-
-    def __init__(self, name, address, postal):
-        self.set_id()
-        self.__name = name
-        self.__address = address
-        self.__postal = postal
 
     def get_id(self):
         return self.__id
@@ -34,7 +36,7 @@ class AddressObj:
     def get_postal(self):
         return self.__postal
 
-    def set_postal(sel, postal):
+    def set_postal(self, postal):
         self.__postal = postal
 
 
