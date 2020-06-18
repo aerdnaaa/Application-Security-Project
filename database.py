@@ -1,9 +1,9 @@
 # SQL Examples
-
-import sqlite3
+from flaskr import file_directory
+import sqlite3, os
 
 # Connect to database
-conn = sqlite3.connect("storage.db")
+conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
 
 # Create cursor
 c = conn.cursor()
@@ -34,9 +34,9 @@ c = conn.cursor()
 # conn.close()
 
 # Query DB
-# c.execute("SELECT * FROM users")
-# print(c.fetchall())
-# conn.close()
+c.execute("SELECT * FROM users")
+print(c.fetchall())
+conn.close()
 
 # c.execute("SELECT * FROM users WHERE username='Mary' ")
 # print(c.fetchone())
