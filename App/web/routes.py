@@ -1,7 +1,7 @@
 from flask import render_template, url_for, request, redirect, flash
 from App.web.Forms import Register, ContactUs, SignIn, SearchForm
-from App import app
-import sqlite3
+from App import app, file_directory
+import sqlite3, os
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
 from App.web.User import User
 
@@ -12,7 +12,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    conn = sqlite3.connect("storage.db")
+    conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
     c = conn.cursor()
     c.execute("SELECT rowid, * FROM users WHERE rowid={} ".format(user_id))
     conn.commit()
@@ -26,7 +26,7 @@ def load_user(user_id):
 def register():
     register = Register(request.form)
     if request.method == "POST":
-        conn = sqlite3.connect("storage.db")
+        conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
         c = conn.cursor()
         c.execute("INSERT INTO users VALUES ('{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data))
         conn.commit()
@@ -37,7 +37,7 @@ def register():
 def signin():
     signin = SignIn(request.form)
     if request.method == "POST":
-        conn = sqlite3.connect("storage.db")
+        conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
         c = conn.cursor()
         c.execute("SELECT rowid, * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
         conn.commit()
