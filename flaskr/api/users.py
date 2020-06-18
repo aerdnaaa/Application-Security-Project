@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource
 import sqlite3, os
-from App import file_directory
+from flaskr import file_directory
 
 todos = {}
 
