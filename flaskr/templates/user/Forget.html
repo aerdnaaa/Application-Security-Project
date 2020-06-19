@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Sign In{% endblock %}
+{% block title %}Forget Password{% endblock %}
 {% block content %}
 {% from "includes/_formhelper.html" import render_field %}
 <style>
@@ -52,13 +52,8 @@
                 <div class="form-group">
                     {{ render_field(form.username, class="form-control") }}
                 </div>
-                <div class="form-group">
-                    {{ render_field(form.password, class="form-control") }}
-                </div>
                 <input id="submitButton" style="text-align: center;" type="submit" value="Submit" class="btn btn-primary"/>
             </form>
-            <br>
-            <a href="/forget" style="text-decoration: none;">Forgot Password?</a>
         </div> <!-- col -->
     </div> <!-- row -->
 </div> <!-- container -->

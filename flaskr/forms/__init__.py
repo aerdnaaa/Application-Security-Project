@@ -23,6 +23,13 @@ class SignIn(Form):
     username = StringField("Username", [validators.InputRequired()])
     password = PasswordField("Password", [validators.InputRequired()])
 
+class Forget(Form):
+    username = StringField("Username", [validators.InputRequired()])
+
+class Recover(Form):
+    answer = StringField("Answer", [validators.InputRequired()])
+    password = PasswordField("Password", [validators.Length(min=8, max=150), validators.InputRequired()])
+
 
 class ContactUs(Form):
     name = StringField('Name', [validators.Length(max=50), validators.InputRequired()])
@@ -33,3 +40,6 @@ class ContactUs(Form):
 
 class SearchForm(Form):
     Search = StringField("", [validators.Optional()])
+
+
+
