@@ -3,8 +3,6 @@ from flask_restful import Resource
 import sqlite3, os
 from flaskr import file_directory
 
-todos = {}
-
 
 class Users(Resource):
     def get(self):
