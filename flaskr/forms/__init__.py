@@ -24,7 +24,7 @@ class SignIn(Form):
     password = PasswordField("Password", [validators.InputRequired()])
 
 class Forget(Form):
-    username = StringField("Username", [validators.InputRequired()])
+    username = StringField("", [validators.InputRequired()])
 
 class Recover(Form):
     answer = StringField("Answer", [validators.InputRequired()])

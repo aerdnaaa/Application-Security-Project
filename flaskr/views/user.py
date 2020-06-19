@@ -93,9 +93,9 @@ def forget():
         else:
             return redirect(url_for('user.recover', username=forgetForm.username.data))
 
-    return render_template('user/Forget.html', form=forgetForm)
+    return render_template("user/Forget.html", form=forgetForm)
 
-@user_blueprint.route('/recover/<username>')
+@user_blueprint.route('/recover/<username>', methods=["GET", "POST"])
 def recover(username):
     conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
     c = conn.cursor()
@@ -113,7 +113,7 @@ def recover(username):
         else:
             flash("Incorrect answer!")
 
-    return render_template('user/Recover.html', user=userObj)
+    return render_template('user/Recover.html', user=userObj, form=recoverForm)
 
 
 # ============================================= Profile Page =============================================#
