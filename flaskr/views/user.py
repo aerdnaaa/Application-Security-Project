@@ -94,7 +94,7 @@ def forget():
         else:
             return redirect(url_for('user.recover', username=forgetForm.username.data))
 
-    return render_template("user/Forget.html", form=forgetForm)
+    return render_template("user/Forget.html", form=forgetForm, user=None)
 
 @user_blueprint.route('/recover/<username>', methods=["GET", "POST"])
 def recover(username):
@@ -110,11 +110,12 @@ def recover(username):
             c.execute("UPDATE users SET password='{}' WHERE username='{}' ".format(recoverForm.password.data, username))
             conn.commit()
             conn.close()
-            return redirect(url_for('user.signin'))
+            # return redirect(url_for('user.signin'))
+            flash("Password has been changed!", "success")
         else:
-            flash("Incorrect answer!")
+            flash("Incorrect answer!", "error")
 
-    return render_template('user/Recover.html', user=userObj, form=recoverForm)
+    return render_template('user/Recover.html', user=None, userObj=userObj, form=recoverForm)
 
 
 # ============================================= Profile Page =============================================#

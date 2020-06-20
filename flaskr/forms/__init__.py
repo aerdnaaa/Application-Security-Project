@@ -24,11 +24,11 @@ class SignIn(Form):
     password = PasswordField("Password", [validators.InputRequired()])
 
 class Forget(Form):
-    username = StringField("", [validators.InputRequired()])
+    username = StringField("Username", [validators.InputRequired()])
 
 class Recover(Form):
     answer = StringField("Answer", [validators.InputRequired()])
-    password = PasswordField("Password", [validators.Length(min=8, max=150), validators.InputRequired()])
+    password = PasswordField("New Password", [validators.Length(min=8, max=150), validators.InputRequired()])
 
 
 class ContactUs(Form):
