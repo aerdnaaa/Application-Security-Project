@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Forget Password{% endblock %}
+{% block title %}Password Recovery{% endblock %}
 {% block content %}
 {% from "includes/_formhelper.html" import render_field %}
 <style>
@@ -33,9 +33,9 @@
 </style>
 <div class="container">
     <br>
-    <h2 id="formHeader" class="animated bounceIn"><a href="/Signin" id="signin">Sign In</a> <span style="color: rgba(232, 232, 232, 1);">/</span> <a href="/Register" id="register">Register</a></h2>
+    <h2 id="formHeader" class="animated bounceIn">Forget Password</h2>
     <div class="row justify-content-center">
-        <div class="col-8" id="formContent">
+        <div class="col-6" id="formContent">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages %}
@@ -54,6 +54,7 @@
                 </div>
                 <input id="submitButton" style="text-align: center;" type="submit" value="Submit" class="btn btn-primary"/>
             </form>
+            <br>
         </div> <!-- col -->
     </div> <!-- row -->
 </div> <!-- container -->

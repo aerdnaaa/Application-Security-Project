@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Forget Password{% endblock %}
+{% block title %}Password Recovery{% endblock %}
 {% block content %}
 {% from "includes/_formhelper.html" import render_field %}
 <style>
@@ -33,10 +33,10 @@
 </style>
 <div class="container">
     <br>
-    <h2 id="formHeader" class="animated bounceIn"><a href="/Signin" id="signin">Sign In</a> <span style="color: rgba(232, 232, 232, 1);">/</span> <a href="/Register" id="register">Register</a></h2>
+    <h2 id="formHeader" class="animated bounceIn">Security Question</h2>
     <div class="row justify-content-center">
-        <div class="col-8" id="formContent">
-            {% with messages = get_flashed_messages() %}
+        <div class="col-7" id="formContent">
+            {% with messages = get_flashed_messages(category_filter=["error"]) %}
             {% if messages %}
             {% for message in messages %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -48,16 +48,33 @@
             {% endfor %}
             {% endif %}
             {% endwith %}
+
+            {% with messages = get_flashed_messages(category_filter=["success"]) %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span>{{ message }} <a style="text-decoration: none;" href="/Home">Click here</a> to return to home</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
             <form method="POST" action="">
                 <div class="form-group">
-                    <label for="question">Security Question</label>
-                    <input type="text" class="form-control" id="email" value="{{ user.get_question() }}" name="question" disabled>
+                  <label for="qn">Security Question</label>
+                  <input type="text" class="form-control" id="qn" value="{{ userObj.get_question() }}" name="qn" disabled>
                 </div>
                 <div class="form-group">
-                    {{ render_field(form.password, class="form-control") }}
+                    {{ render_field(form.answer, class="form-control") }}
                 </div>
+                <div class="form-group">
+                  {{ render_field(form.password, class="form-control") }}
+              </div>
                 <input id="submitButton" style="text-align: center;" type="submit" value="Submit" class="btn btn-primary"/>
             </form>
+            <br>
         </div> <!-- col -->
     </div> <!-- row -->
 </div> <!-- container -->

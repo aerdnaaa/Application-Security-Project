@@ -49,6 +49,7 @@ def signin():
         # ' or 1=1-- (login to admin account)
         # user'-- (login to any account)
         # ' or rowid=1-- (login to any account)
+        # ZAP' OR '1'='1' --
         c.execute("SELECT rowid, * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
         conn.commit()
         user = c.fetchone()
@@ -93,9 +94,9 @@ def forget():
         else:
             return redirect(url_for('user.recover', username=forgetForm.username.data))
 
-    return render_template('user/Forget.html', form=forgetForm)
+    return render_template("user/Forget.html", form=forgetForm, user=None)
 
-@user_blueprint.route('/recover/<username>')
+@user_blueprint.route('/recover/<username>', methods=["GET", "POST"])
 def recover(username):
     conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
     c = conn.cursor()
@@ -109,11 +110,12 @@ def recover(username):
             c.execute("UPDATE users SET password='{}' WHERE username='{}' ".format(recoverForm.password.data, username))
             conn.commit()
             conn.close()
-            return redirect(url_for('user.signin'))
+            # return redirect(url_for('user.signin'))
+            flash("Password has been changed!", "success")
         else:
-            flash("Incorrect answer!")
+            flash("Incorrect answer!", "error")
 
-    return render_template('user/Recover.html', user=userObj)
+    return render_template('user/Recover.html', user=None, userObj=userObj, form=recoverForm)
 
 
 # ============================================= Profile Page =============================================#
