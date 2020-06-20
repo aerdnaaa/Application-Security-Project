@@ -19,8 +19,10 @@ class User(UserMixin):
 
     def get_password(self):
         return self.__password
+
     def get_question(self):
         return self.__question
+
     def get_answer(self):
         return self.__answer
 
