@@ -34,10 +34,15 @@ c = conn.cursor()
 # conn.close()
 
 # Query DB
-c.execute("SELECT * FROM users")
-print(c.fetchall())
-conn.close()
-
-# c.execute("SELECT username FROM users WHERE username='Mary123' ")
-# print(c.fetchone())
+# c.execute("SELECT * FROM users")
+# print(c.fetchall())
 # conn.close()
+
+c.execute("SELECT * FROM users WHERE username='JohnDoe' ")
+user = c.fetchone()
+print(user[0])
+print(user[1])
+print(user[2])
+print(user[3])
+print(user[4])
+conn.close()

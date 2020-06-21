@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import current_user, login_user, logout_user, login_required
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, make_response
 from flaskr.forms import Register, SignIn, Forget, Recover
 from flaskr import file_directory
 from flaskr.models.User import User
@@ -11,11 +10,11 @@ user_blueprint = Blueprint('user', __name__)
 # ============================================= Sign in/ Register ===============================================#
 @user_blueprint.route("/Register", methods=["GET", "POST"])
 def register():
-    try:
-        current_user.get_username()
-        user = current_user
-    except:
+    if 'username' in session:
+        return redirect(url_for('main.home'))
+    else:
         user = None
+
     register = Register(request.form)
     if request.method == "POST" and register.validate():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
@@ -34,10 +33,9 @@ def register():
 
 @user_blueprint.route("/Signin", methods=["GET", "POST"])
 def signin():
-    try:
-        current_user.get_username()
-        user = current_user
-    except:
+    if 'username' in session:
+        return redirect(url_for('main.home'))
+    else:
         user = None
     
     signin = SignIn(request.form)
@@ -50,7 +48,7 @@ def signin():
         # user'-- (login to any account)
         # ' or rowid=1-- (login to any account)
         # ZAP' OR '1'='1' --
-        c.execute("SELECT rowid, * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
+        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
         conn.commit()
         user = c.fetchone()
 
@@ -62,29 +60,42 @@ def signin():
                 flash("Incorrect username")
 
         elif user[1] == "Admin":
-            userObj = User(user[0], user[1], user[2], user[3], user[4], user[5])
-            print(user)
-            login_user(userObj)
+            # Weak code: Store confidential info in session
+            session['username'] = user[0]
+            session['email'] = user[1]
+            session['password'] = user[2]
+            session['question'] = user[3]
+            session['answer'] = user[4]
             return redirect(url_for('admin.admin'))
 
         else:
-            userObj = User(user[0], user[1], user[2], user[3], user[4], user[5])
-            print(user)
-            login_user(userObj)
+            # Weak code: Store confidential info in session
+            session['username'] = user[0]
+            session['email'] = user[1]
+            session['password'] = user[2]
+            session['question'] = user[3]
+            session['answer'] = user[4]
             return redirect(url_for('main.home'))
         conn.close()
     return render_template("user/SignIn.html", user=user, form=signin)
 
 
 @user_blueprint.route('/logout')
-# @login_required
 def logout():
-    logout_user()
-    print('User logged out')
+    session.pop('username', None)
+    session.pop('email', None)
+    session.pop('password', None)
+    session.pop('question', None)
+    session.pop('answer', None)
     return redirect(url_for('main.home'))
 
 @user_blueprint.route('/forget', methods=["GET", "POST"])
 def forget():
+    if 'username' in session:
+        return redirect(url_for('main.home'))
+    else:
+        user = None
+
     forgetForm = Forget(request.form)
     if request.method == "POST" and forgetForm.validate():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
@@ -94,15 +105,18 @@ def forget():
         else:
             return redirect(url_for('user.recover', username=forgetForm.username.data))
 
-    return render_template("user/Forget.html", form=forgetForm, user=None)
+    return render_template("user/Forget.html", form=forgetForm, user=user)
 
 @user_blueprint.route('/recover/<username>', methods=["GET", "POST"])
 def recover(username):
+    if 'username' in session:
+        return redirect(url_for('main.home'))
+
     conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
     c = conn.cursor()
-    c.execute("SELECT rowid, * FROM users WHERE username='{}' ".format(username))
+    c.execute("SELECT * FROM users WHERE username='{}' ".format(username))
     user = c.fetchone()
-    userObj = User(user[0], user[1], user[2],user[3], user[4], user[5])
+    userObj = User(user[0], user[1], user[2], user[3], user[4])
 
     recoverForm = Recover(request.form)
     if request.method == "POST" and recoverForm.validate():
@@ -120,12 +134,10 @@ def recover(username):
 
 # ============================================= Profile Page =============================================#
 @user_blueprint.route("/Profile", methods=["GET", "POST"])
-@login_required
 def Profile():
-    try:
-        current_user.get_username()
-        user = current_user
-    except:
-        user = None
+    if 'username' in session:
+        user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
+    else:
+        return redirect(url_for('user.signin'))
 
     return render_template("user/Profile.html", user=user)
