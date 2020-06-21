@@ -59,7 +59,7 @@ def signin():
             else:
                 flash("Incorrect username")
 
-        elif user[1] == "Admin":
+        elif user[0] == "Admin":
             # Weak code: Store confidential info in session
             session['username'] = user[0]
             session['email'] = user[1]
