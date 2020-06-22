@@ -305,6 +305,13 @@
         <li class="nav-item">
           <a class="nav-link" href="/FAQ">FAQ</a>
         </li>
+        <li>
+          <form class="search-form" autocomplete="off">
+            <button class="search-button" type="submit" role="button">Search</button>
+            <input class="search-input" id="q22" type="text" name="query" />
+        </form>
+        </li>
+        <li><span id="q33" class="query"></span></li>
       </ul>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -494,6 +501,14 @@
           document.getElementById('mainnavbar').style.backgroundColor='';
         }
       }
+
+//testing xss
+      function rdy() {
+	var query = new URL(window.location).searchParams.get('query')
+	document.getElementById('q22').value = query
+	document.getElementById('q33').innerHTML = query
+}
+
     </script>
 
 
