@@ -20,9 +20,9 @@ def register():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
         if c.execute(
-                "SELECT username FROM users WHERE username='{}' ".format(register.username.data)).fetchone() == None:
+            "SELECT username FROM users WHERE username='{}' ".format(register.username.data)).fetchone() == None:
             # Weak code (Not validating user input)
-            c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}')".format(register.username.data,                                                       register.answer.data))
+            c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data, register.question.data, register.answer.data))   
             conn.commit()
             conn.close()
             return redirect(url_for('user.signin'))
