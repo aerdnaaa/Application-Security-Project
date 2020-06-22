@@ -38,11 +38,14 @@ c = conn.cursor()
 # print(c.fetchall())
 # conn.close()
 
-c.execute("SELECT * FROM users WHERE username='JohnDoe' ")
-user = c.fetchone()
-print(user[0])
-print(user[1])
-print(user[2])
-print(user[3])
-print(user[4])
+# c.execute("SELECT * FROM users WHERE username='JohnDoe' ")
+# user = c.fetchone()
+
+# To see table names
+# c.execute(" SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+# print(c.fetchone())
+
+# c.execute("SELECT name FROM (SELECT * FROM sqlite_master UNION ALL SELECT * FROM sqlite_temp_master) WHERE type='table' ORDER BY name")
+# print(c.fetchone())
+
 conn.close()
