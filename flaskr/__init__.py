@@ -6,11 +6,11 @@ from flask_mail import Mail
 import os, sqlite3
 
 app = Flask(__name__)
-app.config.from_object('config')
 api_app = Api(app)
-login_manager = LoginManager(app)
+# login_manager = LoginManager(app)
 jwt = JWTManager(app)
 mail = Mail(app)
+app.config.from_object('config')
 
 file_directory = os.path.dirname(os.path.dirname(__file__))
 

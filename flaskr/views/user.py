@@ -19,9 +19,10 @@ def register():
     if request.method == "POST" and register.validate():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
-        if c.execute("SELECT username FROM users WHERE username='{}' ".format(register.username.data)).fetchone() == None:
+        if c.execute(
+                "SELECT username FROM users WHERE username='{}' ".format(register.username.data)).fetchone() == None:
             # Weak code (Not validating user input)
-            c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data, register.question.data, register.answer.data))
+            c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}')".format(register.username.data,                                                       register.answer.data))
             conn.commit()
             conn.close()
             return redirect(url_for('user.signin'))
@@ -37,7 +38,7 @@ def signin():
         return redirect(url_for('main.home'))
     else:
         user = None
-    
+
     signin = SignIn(request.form)
     if request.method == "POST" and signin.validate():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
@@ -48,13 +49,15 @@ def signin():
         # user'-- (login to any account)
         # ' or rowid=1-- (login to any account)
         # ZAP' OR '1'='1' --
-        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
+        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data,
+                                                                                      signin.password.data))
         conn.commit()
         user = c.fetchone()
 
         # Weak Code (disclosing too much information)
         if user == None:
-            if c.execute("SELECT username FROM users WHERE username='{}'".format(signin.username.data)).fetchone() != None:
+            if c.execute(
+                    "SELECT username FROM users WHERE username='{}'".format(signin.username.data)).fetchone() != None:
                 flash("Incorrect password")
             else:
                 flash("Incorrect username")
@@ -89,6 +92,7 @@ def logout():
     session.pop('answer', None)
     return redirect(url_for('main.home'))
 
+
 @user_blueprint.route('/forget', methods=["GET", "POST"])
 def forget():
     if 'username' in session:
@@ -100,12 +104,14 @@ def forget():
     if request.method == "POST" and forgetForm.validate():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
-        if c.execute("SELECT username FROM users WHERE username='{}' ".format(forgetForm.username.data)).fetchone() == None:
+        if c.execute(
+                "SELECT username FROM users WHERE username='{}' ".format(forgetForm.username.data)).fetchone() == None:
             flash("Username does not exist!")
         else:
             return redirect(url_for('user.recover', username=forgetForm.username.data))
 
     return render_template("user/Forget.html", form=forgetForm, user=user)
+
 
 @user_blueprint.route('/recover/<username>', methods=["GET", "POST"])
 def recover(username):
