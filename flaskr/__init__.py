@@ -7,7 +7,6 @@ import os, sqlite3
 
 app = Flask(__name__)
 api_app = Api(app)
-# login_manager = LoginManager(app)
 jwt = JWTManager(app)
 mail = Mail(app)
 app.config.from_object('config')
