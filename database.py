@@ -34,7 +34,7 @@ c = conn.cursor()
 # conn.close()
 
 # Query DB
-# c.execute("SELECT * FROM users")
+# c.execute("SELECT * FROM users WHERE username='' ")
 # print(c.fetchall())
 # conn.close()
 
@@ -46,6 +46,9 @@ c = conn.cursor()
 # print(c.fetchone())
 
 # c.execute("SELECT name FROM (SELECT * FROM sqlite_master UNION ALL SELECT * FROM sqlite_temp_master) WHERE type='table' ORDER BY name")
+# print(c.fetchone())
+
+# c.execute("SELECT * FROM users WHERE username='' UNION SELECT sql, '2', '3', '4', '5' FROM sqlite_master-- ")
 # print(c.fetchone())
 
 conn.close()
