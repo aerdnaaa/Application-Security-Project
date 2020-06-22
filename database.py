@@ -48,6 +48,7 @@ c = conn.cursor()
 # c.execute("SELECT name FROM (SELECT * FROM sqlite_master UNION ALL SELECT * FROM sqlite_temp_master) WHERE type='table' ORDER BY name")
 # print(c.fetchone())
 
+# See all tables created in sqlite db
 # c.execute("SELECT * FROM users WHERE username='' UNION SELECT sql, '2', '3', '4', '5' FROM sqlite_master-- ")
 # print(c.fetchone())
 
