@@ -49,8 +49,7 @@ def signin():
         # user'-- (login to any account)
         # ' or rowid=1-- (login to any account)
         # ZAP' OR '1'='1' --
-        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data,
-                                                                                      signin.password.data))
+        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
         conn.commit()
         user = c.fetchone()
 
