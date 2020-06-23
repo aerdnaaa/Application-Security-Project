@@ -16,6 +16,14 @@ c = conn.cursor()
 #     question text,
 #     answer text
 #     )""")
+
+# c.execute("""CREATE TABLE users (
+#     username text,
+#     email text,
+#     password text,
+#     question text,
+#     answer text
+#     )""")
 # conn.commit()
 # conn.close()
 # print('table created')
