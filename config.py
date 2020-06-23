@@ -9,3 +9,4 @@ MAIL_USERNAME = '30f5c0135695dc'
 MAIL_PASSWORD = 'c0a826e1a62988'
 MAIL_USE_TLS = True
 MAIL_USE_SSL = False
+# this is gae
