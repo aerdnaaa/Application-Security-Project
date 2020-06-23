@@ -1,6 +1,6 @@
 import os
 
-DEBUG = True
+DEBUG = False
 SECRET_KEY = 'ThisIsSupposedToBeSecret'
 JWT_SECRET_KEY = 'super-secret'
 MAIL_SERVER ='smtp.mailtrap.io'
