@@ -41,5 +41,11 @@ class ContactUs(Form):
 class SearchForm(Form):
     Search = StringField("", [validators.Optional()])
 
+class PaymentOptions(Form):
+    Name = StringField("Full Name", [validators.InputRequired()])
+    CreditCardno = StringField("Credit Card Number", [validators.Length(min=16, max=16)])
+    ExpiryDate = DateField("Expiry Date",[validators.InputRequired()])
+    SecretNumber = PasswordField("CCV", [validators.Length(min=3,max=3)])
+
 
 

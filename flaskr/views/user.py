@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, make_response
-from flaskr.forms import Register, SignIn, Forget, Recover
+from flaskr.forms import Register, SignIn, Forget, Recover, PaymentOptions
 from flaskr import file_directory
 from flaskr.models.User import User
 import sqlite3, os
@@ -137,7 +137,7 @@ def recover(username):
     return render_template('user/Recover.html', user=None, userObj=userObj, form=recoverForm)
 
 
-# ============================================= Profile Page =============================================#
+# ============================================= User Page =============================================#
 @user_blueprint.route("/Profile", methods=["GET", "POST"])
 def Profile():
     if 'username' in session:
@@ -146,3 +146,14 @@ def Profile():
         return redirect(url_for('user.signin'))
 
     return render_template("user/Profile.html", user=user)
+
+@user_blueprint.route("/PaymentInfo", methods=["GET", "POST"])
+def PaymentInfo():
+    if 'username' in session:
+        user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
+    else:
+        return redirect(url_for('user.signin'))
+
+    payment = PaymentOptions(request.form)
+
+    return render_template("user/Payment.html", user=user, form=payment)

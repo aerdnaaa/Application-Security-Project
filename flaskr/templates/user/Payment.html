@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block header %}
+<style>
+    h1 {
+        margin: 20px;
+    }
+    #basic-information {
+        float: left;
+        margin: 20px 0px 0px 50px;
+        width: 700px;
+    }
+    .list-group {
+        float: left;
+        margin-left: 20px;
+        margin-top: 20px;
+        width: 250px;
+    }
+    #save-button {
+        float: right;
+        display: none;
+    }
+    #password-alert {
+        display: none;
+    }
+    #error-message {
+        display: none;
+    }
+    #reset-password {
+        display: none;
+    }
+    #username-alert {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% from "includes/_formhelper.html" import render_field %}
+
+<body>
+    <br>
+    <h1>Profile</h1>
+    <hr>
+
+<div class="list-group">
+    <a href="/Profile" type="button" class="list-group-item list-group-item-action">Basic Information</a>
+    <a href="#" type="button" class="list-group-item list-group-item-action">Orders</a>
+    <a href="#" type="button" class="list-group-item list-group-item-action">Addresses</a>
+    <a href="/PaymentInfo" type="button" class="list-group-item list-group-item-action active">Payment Options</a>
+</div>
+
+<div id="basic-information">
+    <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Collapsible Group Item #1
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+          </div>
+        </div>
+        <br>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Add New Card
+        </button>
+
+      </div>
+</div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Card Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="">
+                <div class="form-group">
+                    {{ render_field(form.Name, class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ render_field(form.CreditCardno, class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ render_field(form.ExpiryDate, class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ render_field(form.SecretNumber, class="form-control") }}
+                </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input id="submitButton" style="text-align: center;" type="submit" value="Add Card" class="btn btn-primary"/>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+
