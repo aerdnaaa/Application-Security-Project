@@ -305,12 +305,12 @@
         <li class="nav-item">
           <a class="nav-link" href="/FAQ">FAQ</a>
         </li>
-        <li>
+        <!-- <li>
           <form class="search-form" autocomplete="off">
             <button class="search-button" type="submit" role="button">Search</button>
             <input class="search-input" id="q22" type="text" name="query" />
         </form>
-        </li>
+        </li> -->
         <li>
           <span id="q33"></span>
         </li>
@@ -318,6 +318,19 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
+          <!-- Search -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <form class="form-inline my-2 my-lg-0 search-form" autocomplete="off">
+                <input class="form-control mr-sm-2 search-input" id="q22" type="text" name="query" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success my-2 my-sm-0 search-button" type="submit" role="button">Search</button>
+              </form>
+            </div>
+          </li>
+
           <li class="nav-item active">
             <a class="nav-link" href="/ShoppingCart"><i class="fas fa-shopping-basket fa-lg"></i><span class="badge badge-danger navbar-badge">{{quantity}}</span></a> 
           </li>
