@@ -9,5 +9,6 @@ if __name__ == "__main__":
     SESSION_COOKIE_SECURE = False,
     PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=365)
     )
+    # this is the finalized codes
 
     app.run()
