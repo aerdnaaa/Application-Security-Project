@@ -505,7 +505,13 @@
       }
 
 //testing xss
-      function rdy() {
+
+if (document.readyState == 'loading') {
+	document.addEventListener('DOMContentLoaded', ready)
+} else {
+	ready()
+}
+      function ready() {
 	var query = new URL(window.location).searchParams.get('query')
 	document.getElementById('q22').value = query
 	document.getElementById('q33').innerHTML = query
