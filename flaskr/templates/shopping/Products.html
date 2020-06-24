@@ -87,7 +87,7 @@
     </form>
     </section>
     <hr>
-    <section style="padding:10px;">
+    <section style="padding:15px;">
         <h4>Product Categories</h4>
             <div class="form-check">
               <div class="form-check">
@@ -136,7 +136,7 @@
                 <a data-toggle="modal" id="Mybtn" title="View"><i class="fas fa-eye fa-2x icon" style="color:black;"></i></a>
               </div>
               <h6 style="text-align: center;"><strong>{{i[1]}}</strong></h6>
-              <h6 style="text-align: center;">{{ "$%.2f"| format(i[4]) }}</h6>
+              <h6 style="text-align: center;">${{ i[4] }}</h6>
         </div>
       </div>
       {% endfor %}

@@ -48,15 +48,16 @@ c = conn.cursor()
 # print('table dropped')
 
 # Query DB
-# c.execute("SELECT * FROM users WHERE username='' ")
-# print(c.fetchall())
-# conn.close()
+c.execute("SELECT rowid, * FROM products WHERE name LIKE '%{}%'".format("' UNION SELECT '1', sql, '3', '4', '5', '6' FROM sqlite_master--"))
+# c.execute("SELECT rowid, * FROM products WHERE name LIKE '%''%' UNION SELECT * FROM x--")
+print(c.fetchall())
+conn.close()
 
 # c.execute("SELECT * FROM users WHERE username='JohnDoe' ")
 # user = c.fetchone()
 
-c.execute("SELECT rowid, * FROM products")
-print(c.fetchall())
+# c.execute("SELECT rowid, * FROM products")
+# print(c.fetchall())
 
 # To see table names
 # c.execute(" SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")

@@ -29,6 +29,7 @@ def Products():
 
     c.execute("SELECT rowid, * FROM products")
     products = c.fetchall()
+    conn.close()
     
     search = SearchForm(request.form)
     if request.method == "POST":
@@ -44,4 +45,25 @@ def Search(product):
     else:
         user = None
 
-    return render_template("shopping/Search.html", user=user)
+    # For search
+    conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+    c = conn.cursor()
+    c.execute("SELECT rowid, * FROM products WHERE name LIKE '%{}%'".format(product))
+    results = c.fetchall()
+    print(results)
+    conn.close()
+    """
+    UNION SQL INJECTION
+    ' UNION SELECT * FROM x-- (Error: No such table x)
+    ' UNION SELECT '1' FROM sqlite_master-- (Error: SELECTs to the left and right of UNION do not have the same number of result columns)
+    ' UNION SELECT '1', '2', '3', '4', '5', '6' FROM sqlite_master-- (Returns all products)
+    ' UNION SELECT '1', sql, '3', '4', '5', '6' FROM sqlite_master-- (Returns all tables in schema)
+    """
+
+    # Search Form
+    form = SearchForm(request.form)
+    if request.method == "POST":
+        # Pass prodduct into url directly (Weak code)
+        return redirect(url_for('shopping.Search', product=form.Search.data))
+
+    return render_template("shopping/Search.html", user=user, products=results, search=product, form=form)
