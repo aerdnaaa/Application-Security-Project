@@ -4,6 +4,22 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail
 import os, sqlite3
+import logging
+import sentry_sdk
+
+
+#sentry sdk for logging
+from sentry_sdk.integrations.logging import LoggingIntegration
+from sentry_sdk.integrations.flask import FlaskIntegration
+# All of this is already happening by default!
+sentry_logging = LoggingIntegration(
+    level=logging.INFO,        # Capture info and above as breadcrumbs
+    event_level=logging.ERROR  # Send errors as events
+)
+sentry_sdk.init(
+    dsn="https://6adb767a90f14dee90f656e1e355f0b1@o412137.ingest.sentry.io/5288433",
+    integrations=[FlaskIntegration()]
+)
 
 app = Flask(__name__)
 api_app = Api(app)
@@ -35,3 +51,11 @@ app.register_blueprint(admin_blueprint)
 app.register_blueprint(main_blueprint)
 app.register_blueprint(shopping_blueprint)
 app.register_blueprint(user_blueprint)
+
+@app.route('/debug-sentry')
+def trigger_error():
+    division_by_zero = 1 / 0
+
+@app.route('/issues')
+def sentry_issues():
+    return ("https://sentry.io/api/0/project/Indirect/Indirect/issues/")

@@ -44,7 +44,7 @@ class SearchForm(Form):
 class PaymentOptions(Form):
     Name = StringField("Full Name", [validators.InputRequired()])
     CreditCardno = StringField("Credit Card Number", [validators.Length(min=16, max=16)])
-    ExpiryDate = DateField("Expiry Date",[validators.InputRequired()])
+    ExpiryDate = DateField("Expiry Date",[validators.InputRequired()], format='%Y-%m-%d')
     SecretNumber = PasswordField("CCV", [validators.Length(min=3,max=3)])
 
 
