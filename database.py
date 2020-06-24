@@ -46,7 +46,7 @@ c = conn.cursor()
 # c.execute("INSERT INTO products VALUES ('Bench', 'products/bench.PNG', 'Incline Bench', 60, 20, 'bench', 'active')")
 # c.execute("INSERT INTO products VALUES ('Half Rack', 'products/halfrack.PNG', 'Half Rack. Good for squat.', 500, 400, 'racks', 'active')")
 # c.execute("INSERT INTO products VALUES ('Bumper Plates', 'products/rouge.PNG', 'Expensive bumper plates', 100, 20, 'plates', 'active')")
-# c.execute("INSERT INTO products VALUES ('Squat Rack', 'products/squat.PNG', 'Cheap and good', 130, 80, 'racks', 1)")
+# c.execute("INSERT INTO products VALUES ('Squat Rack', 'products/squat.PNG', 'Cheap and good', 130, 80, 'racks', 'active')")
 # c.execute("INSERT INTO products VALUES ('Flat Bench', 'products/bench2.PNG', 'Flat bench. Good for benching', 90, 45, 'bench', 'active')")
 # c.execute("INSERT INTO products VALUES ('Tri-grip Plates', 'products/nyp.PNG', 'Budget plates', 100, 40, 'plates', 'active')")
 # c.execute("INSERT INTO products VALUES ('Trap Bar', 'products/trap.PNG', 'Good stuff', 200, 90, 'barbell', 'inactive')")
@@ -55,10 +55,10 @@ c = conn.cursor()
 # print('rows created')
 
 # JoO SeNg
-c.execute("INSERT INTO paymentdetials VALUES (usename, name, ccnumber, expiry, cvv)")
-conn.commit()
-conn.close()
-print('rows created')
+# c.execute("INSERT INTO paymentdetials VALUES (usename, name, ccnumber, expiry, cvv)")
+# conn.commit()
+# conn.close()
+# print('rows created')
 
 # Drop Table
 # c.execute("DROP TABLE products")

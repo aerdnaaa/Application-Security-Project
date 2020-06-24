@@ -56,7 +56,7 @@ def Products():
     
     search = SearchForm(request.form)
     if request.method == "POST":
-        # Pass prodduct into url directly (Weak code)
+        # Pass product into url directly (Weak code)
         return redirect(url_for('shopping.Search', product=search.Search.data))
 
     return render_template("shopping/Products.html", user=user, form=search, products=products)
