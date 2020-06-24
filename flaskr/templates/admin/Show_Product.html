@@ -27,8 +27,11 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Selling Price</th>
                     <th scope="col">Cost Price</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Status</th>
                     <th scope="col"></th>
                 </tr>
@@ -41,6 +44,7 @@
 
     <script>
         load_data()
+
         function load_data() {
             let url = 'http://localhost:5000/api/products';
             let xmlhttp = new XMLHttpRequest();
@@ -58,7 +62,7 @@
         }
 
         function write_data_to_table(data) {
-            let column_list = ["productName", "productSellingPrice", "productCostPrice"]
+            let column_list = ["productName", "productImage", "productDescription", "productSellingPrice", "productCostPrice", "productCategory"]
             let tbody = document.getElementsByClassName("tbody")[0];
             while (tbody.firstChild) {
                 tbody.firstChild.remove();
@@ -71,7 +75,14 @@
                 tr.appendChild(th);
                 for (const value of column_list) {
                     let td = document.createElement("td");
-                    td.innerText = data[i][value];
+                    if (value == "productImage") {
+                        let img = document.createElement("img");
+                        img.setAttribute("src", "/static/img/" + data[i][value])
+                        img.setAttribute("class", "img-fluid")
+                        td.appendChild(img)
+                    } else {
+                        td.innerText = data[i][value];
+                    }
                     tr.appendChild(td);
                 }
                 let statusTd = document.createElement("td");
@@ -107,8 +118,7 @@
             let productStatus = ''
             if (button.innerText == "Deactivate") {
                 productStatus = 'inactive'
-            }
-            else {
+            } else {
                 productStatus = 'active'
             }
             let data = {
@@ -123,7 +133,9 @@
                 },
                 body: JSON.stringify(data)
             })
-            .then(() => {load_data()})
+                .then(() => {
+                    load_data()
+                })
         }
 
 
