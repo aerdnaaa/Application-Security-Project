@@ -17,6 +17,13 @@ c = conn.cursor()
 #     answer text
 #     )""")
 
+c.execute("""CREATE TABLE products (
+    product_name text,
+    product_selling_price real,
+    product_cost_price real,
+    product_status text
+    )""")
+
 # c.execute("""CREATE TABLE users (
 #     username text,
 #     email text,
