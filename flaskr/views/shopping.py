@@ -21,14 +21,19 @@ def Products():
         user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
     else:
         user = None
+
+    conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+    c = conn.cursor()
+
+    c.execute("SELECT rowid, * FROM products")
+    products = c.fetchall()
     
     search = SearchForm(request.form)
-
     if request.method == "POST":
         # Pass prodduct into url directly (Weak code)
         return redirect(url_for('shopping.Search', product=search.Search.data))
 
-    return render_template("shopping/Products.html", user=user, form=search)
+    return render_template("shopping/Products.html", user=user, form=search, products=products)
 
 @shopping_blueprint.route("/Search/<product>", methods=['POST', 'GET'])
 def Search(product):

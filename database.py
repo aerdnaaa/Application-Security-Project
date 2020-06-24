@@ -17,21 +17,22 @@ c = conn.cursor()
 #     answer text
 #     )""")
 
-# c.execute("""CREATE TABLE users (
-#     username text,
-#     email text,
-#     password text,
-#     question text,
-#     answer text
+# c.execute("""CREATE TABLE products (
+#     name text,
+#     image text,
+#     description text,
+#     price real
 #     )""")
 # conn.commit()
 # conn.close()
 # print('table created')
 
 # Insert Row
-# c.execute("INSERT INTO users VALUES ('Admin', 'Admin@mail.com','password', 'What is the middle name of your mother?', 'test')")
-# c.execute("INSERT INTO users VALUES ('JohnDoe', 'John@mail.com','password', 'Where was the first place you went to on a plane?', 'singapore')")
-# c.execute("INSERT INTO users VALUES ('Mary', 'Mary@mail.com', 'password1', 'What is the name of your favourite teacher?', 'bro')")
+# c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'barbell.PNG', '2.2m Olympic Barbell', 130)")
+# c.execute("INSERT INTO products VALUES ('Bench', 'bench.PNG', 'Incline Bench', 60)")
+# c.execute("INSERT INTO products VALUES ('Half Rack', 'halfrack.PNG', 'Half Rack. Good for squat.', 500)")
+# c.execute("INSERT INTO products VALUES ('Bumper Plates', 'rouge.PNG', 'Expensive bumper plates', 100)")
+# c.execute("INSERT INTO products VALUES ('Squat Rack', 'squat.PNG', 'Cheap and good', 130)")
 # conn.commit()
 # conn.close()
 # print('rows created')
@@ -48,6 +49,9 @@ c = conn.cursor()
 
 # c.execute("SELECT * FROM users WHERE username='JohnDoe' ")
 # user = c.fetchone()
+
+# c.execute("SELECT rowid, * FROM products")
+# print(c.fetchall())
 
 # To see table names
 # c.execute(" SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
