@@ -89,6 +89,7 @@ def logout():
     session.pop('password', None)
     session.pop('question', None)
     session.pop('answer', None)
+    session.pop('cart', None)
     return redirect(url_for('main.home'))
 
 

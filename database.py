@@ -22,21 +22,22 @@ c = conn.cursor()
 #     image text,
 #     description text,
 #     price real,
-#     category text
+#     category text,
+#     active integer
 #     )""")
 # conn.commit()
 # conn.close()
 # print('table created')
 
 # Insert Row
-# c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'barbell.PNG', '2.2m Olympic Barbell', 130, 'barbell')")
-# c.execute("INSERT INTO products VALUES ('Bench', 'bench.PNG', 'Incline Bench', 60, 'bench')")
-# c.execute("INSERT INTO products VALUES ('Half Rack', 'halfrack.PNG', 'Half Rack. Good for squat.', 500, 'racks')")
-# c.execute("INSERT INTO products VALUES ('Bumper Plates', 'rouge.PNG', 'Expensive bumper plates', 100, 'plates')")
-# c.execute("INSERT INTO products VALUES ('Squat Rack', 'squat.PNG', 'Cheap and good', 130, 'racks')")
-# c.execute("INSERT INTO products VALUES ('Flat Bench', 'bench2.PNG', 'Flat bench. Good for benching', 90, 'bench')")
-# c.execute("INSERT INTO products VALUES ('Tri-grip Plates', 'nyp.PNG', 'Budget plates', 100, 'plates')")
-# c.execute("INSERT INTO products VALUES ('Trap Bar', 'trap.PNG', 'Good stuff', 200, 'barbell')")
+# c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'barbell.PNG', '2.2m Olympic Barbell', 130, 'barbell', 1)")
+# c.execute("INSERT INTO products VALUES ('Bench', 'bench.PNG', 'Incline Bench', 60, 'bench', 1)")
+# c.execute("INSERT INTO products VALUES ('Half Rack', 'halfrack.PNG', 'Half Rack. Good for squat.', 500, 'racks', 1)")
+# c.execute("INSERT INTO products VALUES ('Bumper Plates', 'rouge.PNG', 'Expensive bumper plates', 100, 'plates', 1)")
+# c.execute("INSERT INTO products VALUES ('Squat Rack', 'squat.PNG', 'Cheap and good', 130, 'racks', 1)")
+# c.execute("INSERT INTO products VALUES ('Flat Bench', 'bench2.PNG', 'Flat bench. Good for benching', 90, 'bench', 1)")
+# c.execute("INSERT INTO products VALUES ('Tri-grip Plates', 'nyp.PNG', 'Budget plates', 100, 'plates', 1)")
+# c.execute("INSERT INTO products VALUES ('Trap Bar', 'trap.PNG', 'Good stuff', 200, 'barbell', 0)")
 # conn.commit()
 # conn.close()
 # print('rows created')
@@ -48,10 +49,10 @@ c = conn.cursor()
 # print('table dropped')
 
 # Query DB
-c.execute("SELECT rowid, * FROM products WHERE name LIKE '%{}%'".format("' UNION SELECT '1', sql, '3', '4', '5', '6' FROM sqlite_master--"))
+# c.execute("SELECT rowid, * FROM products WHERE name LIKE '%{}%'".format("' UNION SELECT '1', sql, '3', '4', '5', '6' FROM sqlite_master--"))
 # c.execute("SELECT rowid, * FROM products WHERE name LIKE '%''%' UNION SELECT * FROM x--")
-print(c.fetchall())
-conn.close()
+# print(c.fetchall())
+# conn.close()
 
 # c.execute("SELECT * FROM users WHERE username='JohnDoe' ")
 # user = c.fetchone()

