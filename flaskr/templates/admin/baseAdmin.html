@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Balls and Paddles | Dashboard</title>
+  <title>Balls and Paddles | {{ title }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -106,13 +106,13 @@
             </a>
             <ul class="nav nav-treeview animated bounceInDown" style="animation-duration: 0.01;">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ url_for('admin.show_product') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>View Products</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ url_for('admin.add_product') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Products</p>
                 </a>

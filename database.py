@@ -21,9 +21,10 @@ c = conn.cursor()
 #     name text,
 #     image text,
 #     description text,
-#     price real,
+#     selling_price real,
+#     cost_price real,
 #     category text,
-#     active integer
+#     status text
 #     )""")
 # conn.commit()
 # conn.close()
@@ -31,24 +32,24 @@ c = conn.cursor()
 
 # c.execute("""CREATE TABLE paymentdetails (
 #     username text,
-#     name text,
-#     ccnumber text,
-#     expiry text,
-#     cvv real
+#     email text,
+#     password text,
+#     question text,
+#     answer text
 #     )""")
 # conn.commit()
 # conn.close()
 # print('table created')
 
 # Insert Row
-# c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'barbell.PNG', '2.2m Olympic Barbell', 130, 'barbell', 1)")
-# c.execute("INSERT INTO products VALUES ('Bench', 'bench.PNG', 'Incline Bench', 60, 'bench', 1)")
-# c.execute("INSERT INTO products VALUES ('Half Rack', 'halfrack.PNG', 'Half Rack. Good for squat.', 500, 'racks', 1)")
-# c.execute("INSERT INTO products VALUES ('Bumper Plates', 'rouge.PNG', 'Expensive bumper plates', 100, 'plates', 1)")
-# c.execute("INSERT INTO products VALUES ('Squat Rack', 'squat.PNG', 'Cheap and good', 130, 'racks', 1)")
-# c.execute("INSERT INTO products VALUES ('Flat Bench', 'bench2.PNG', 'Flat bench. Good for benching', 90, 'bench', 1)")
-# c.execute("INSERT INTO products VALUES ('Tri-grip Plates', 'nyp.PNG', 'Budget plates', 100, 'plates', 1)")
-# c.execute("INSERT INTO products VALUES ('Trap Bar', 'trap.PNG', 'Good stuff', 200, 'barbell', 0)")
+# c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'products/barbell.PNG', '2.2m Olympic Barbell', 130, 50, 'barbell', 'active')")
+# c.execute("INSERT INTO products VALUES ('Bench', 'products/bench.PNG', 'Incline Bench', 60, 20, 'bench', 'active')")
+# c.execute("INSERT INTO products VALUES ('Half Rack', 'products/halfrack.PNG', 'Half Rack. Good for squat.', 500, 400, 'racks', 'active')")
+# c.execute("INSERT INTO products VALUES ('Bumper Plates', 'products/rouge.PNG', 'Expensive bumper plates', 100, 20, 'plates', 'active')")
+# c.execute("INSERT INTO products VALUES ('Squat Rack', 'products/squat.PNG', 'Cheap and good', 130, 80, 'racks', 1)")
+# c.execute("INSERT INTO products VALUES ('Flat Bench', 'products/bench2.PNG', 'Flat bench. Good for benching', 90, 45, 'bench', 'active')")
+# c.execute("INSERT INTO products VALUES ('Tri-grip Plates', 'products/nyp.PNG', 'Budget plates', 100, 40, 'plates', 'active')")
+# c.execute("INSERT INTO products VALUES ('Trap Bar', 'products/trap.PNG', 'Good stuff', 200, 90, 'barbell', 'inactive')")
 # conn.commit()
 # conn.close()
 # print('rows created')
