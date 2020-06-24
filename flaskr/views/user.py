@@ -43,7 +43,7 @@ def signin():
     if request.method == "POST" and signin.validate():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
-        # Weak code (Not validating user input)
+        # Weak code (Not validating user inpuat)
         # POSSIBLE ATTACKS
         # ' or 1=1-- (login to admin account)
         # user'-- (login to any account)
@@ -154,7 +154,17 @@ def PaymentInfo():
         user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
     else:
         return redirect(url_for('user.signin'))
-
     payment = PaymentOptions(request.form)
-
+    if request.method == "POST" and payment.validate():
+        conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
+        c = conn.cursor()
+        c.execute("SELECT * FROM paymentdetails WHERE username='{}' ".format(user.get_username()))
+        user = c.fetchone()
+        if not user:
+            c.execute("INSERT INTO paymentdetails VALUES ('{}','{}','{}','{}','{}')".format(user.get_username(),payment.Name.data,payment.CreditCardno.data,payment.ExpiryDate.data,payment.SecretNumber.data))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('user.Profile'))
+        else:
+            flash('Only can store 1 card detail')
     return render_template("user/Payment.html", user=user, form=payment)
