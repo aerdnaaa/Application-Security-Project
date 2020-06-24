@@ -34,7 +34,7 @@ c = conn.cursor()
 #     name text,
 #     ccnumber text,
 #     expiry text,
-#     cvv real
+#     cvv integer
 #     )""")
 # conn.commit()
 # conn.close()
@@ -54,7 +54,7 @@ c = conn.cursor()
 # print('rows created')
 
 # JoO SeNg #ok
-c.execute("INSERT INTO paymentdetails VALUES (usename, name, ccnumber, expiry, cvv)")
+c.execute("INSERT INTO paymentdetails VALUES (username, name, ccnumber, expiry, cvv)")
 conn.commit()
 conn.close()
 print('rows created')

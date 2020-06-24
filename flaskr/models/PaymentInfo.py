@@ -9,43 +9,36 @@ class PaymentInfo:
                 break
         self.__id = id
     
-    def __init__(self, creditCardNo="", expiryMonth="", expiryYear="", ccv="", cardName=""):
+    def __init__(self, FullName , CreditCardNo , expiryDate, ccv ):
         self.set_id()
-        self.__creditCardNo = creditCardNo
-        self.__cardName = cardName
+        self.__Fullname = FullName
+        self.__CreditCardNo = CreditCardNo
+        self.__expiryDate = expiryDate
         self.__ccv = ccv
-        self.__expiryMonth = expiryMonth
-        self.__expiryYear = expiryYear
 
     def get_id(self):
         return self.__id
 
-    def get_credit_card_number(self):
-        return self.__creditCardNo
+    def get_full_name(self):
+        return self.__Fullname
 
-    def get_card_name(self):
-        return self.__cardName
+    def get_credit_card_number(self):
+        return self.__CreditCardNo
+
+    def get_expiry_date(self):
+        return self.__expiryDate
 
     def get_ccv(self):
         return self.__ccv
 
-    def get_expiry_month(self):
-        return self.__expiryMonth
-
-    def get_expiry_year(self):
-        return self.__expiryYear
+    def set_full_name(self, value):
+        self.__FullName = value
 
     def set_credit_card_number(self, value):
-        self.__creditCardNo = value
+        self.__CreditCardNo = value
 
-    def set_card_name(self, value):
-        self.__cardName = value
+    def set_expiryDate(self, value):
+        self.__expiryDate = value
 
     def set_ccv(self, value):
         self.__ccv = value
-
-    def set_expiry_month(self, value):
-        self.__expiryMonth = value
-
-    def setExpiryYear(self, value):
-        self.__expiryYear = value

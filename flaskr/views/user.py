@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flaskr.forms import Register, SignIn, Forget, Recover, PaymentOptions
 from flaskr import file_directory
 from flaskr.models.User import User
+from flaskr.models.PaymentInfo import PaymentInfo
 import sqlite3, os
 
 user_blueprint = Blueprint('user', __name__)
@@ -149,22 +150,36 @@ def Profile():
     return render_template("user/Profile.html", user=user)
 
 @user_blueprint.route("/PaymentInfo", methods=["GET", "POST"])
-def PaymentInfo():
+def PaymentRoute():
     if 'username' in session:
         user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
-    else:
-        return redirect(url_for('user.signin'))
-    payment = PaymentOptions(request.form)
-    if request.method == "POST" and payment.validate():
+        # get payment information if have
         conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
         c = conn.cursor()
         c.execute("SELECT * FROM paymentdetails WHERE username='{}' ".format(user.get_username()))
-        user = c.fetchone()
-        if not user:
-            c.execute("INSERT INTO paymentdetails VALUES ('{}','{}','{}','{}','{}')".format(user.get_username(),payment.Name.data,payment.CreditCardno.data,payment.ExpiryDate.data,payment.SecretNumber.data))
+        #self define paymentinformation and fetch one and return into payment information variable.
+        paymentinformation = c.fetchone()
+        #get all the 4 attribute from the PaymentInfo.py
+        if paymentinformation:
+            payment_details = PaymentInfo(paymentinformation[1],paymentinformation[2],paymentinformation[3],paymentinformation[4])
+        else:
+            payment_details = PaymentInfo("", "", "", "")
+    else:
+        return redirect(url_for('user.signin'))
+
+    payment_form = PaymentOptions(request.form)
+    print(payment_form.validate())
+    if request.method == "POST" and payment_form.validate():
+        print("this code is running")
+        conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
+        c = conn.cursor()
+        c.execute("SELECT * FROM paymentdetails WHERE username='{}' ".format(user.get_username()))
+        result = c.fetchone()
+        if not result:
+            c.execute("INSERT INTO paymentdetails VALUES ('{}','{}','{}','{}','{}')".format(user.get_username(),payment_form.Name.data,payment_form.CreditCardno.data,payment_form.ExpiryDate.data,payment_form.SecretNumber.data))
             conn.commit()
             conn.close()
             return redirect(url_for('user.Profile'))
         else:
             flash('Only can store 1 card detail')
-    return render_template("user/Payment.html", user=user, form=payment)
+    return render_template("user/Payment.html", user=user, form=payment_form, payment_details=payment_details)

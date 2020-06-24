@@ -64,7 +64,24 @@
       
           <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
-            
+              <form id="paymentdetails-form" method="post">
+                <div class="form-group">
+                  <label for="fullname">FullName</label>
+                  <input type="text" class="form-control" id="fullname" value="{{ payment_details.get_full_name() }}" name="fullname" disabled>
+                </div>   
+                <div class="form-group">
+                  <label for="cardnumber">Card Number</label>
+                  <input type="text" class="form-control" id="cardnumber" value="{{ payment_details.get_credit_card_number() }}" name="cardnumber" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="expirydate">Expiry Date</label>
+                  <input type="text" class="form-control" id="expirydate" value="{{ payment_details.get_expiry_date() }}" name="expirydate" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="ccv">CCV</label>
+                  <input type="text" class="form-control" id="ccv" value="{{ payment_details.get_ccv() }}" name="ccv" disabled>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -98,7 +115,7 @@
                     {{ render_field(form.CreditCardno, class="form-control") }}
                 </div>
                 <div class="form-group">
-                    {{ render_field(form.ExpiryDate, class="form-control", type="month") }}
+                    {{ render_field(form.ExpiryDate, class="form-control") }}
                 </div>
                 <div class="form-group">
                     {{ render_field(form.SecretNumber, class="form-control") }}
@@ -108,8 +125,8 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <input id="submitButton" style="text-align: center;" type="submit" value="Add Card" class="btn btn-primary"/>
-        </form>
         </div>
+      </form>
       </div>
     </div>
   </div>
