@@ -140,6 +140,19 @@
                   <h6 style="text-align: center;">${{ i[4] }}</h6>
             </div>
           </div>
+
+          <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div>
+              <img class="img-fluid" src="/static/img/{{i[2]}}" height=200 width=200 style="float:left";>
+              <h3 style="display: inline;padding-left:200px ;" >Reviews</h3>
+            </div>
+            </div>
+          
+          </div>
         {% endif %}
       {% endfor %}
 
@@ -147,18 +160,7 @@
   </div>
 
   <!-- The Modal -->
-<div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div>
-    <img class="img-fluid" src="/static/img/jersy.jfif" height=200 width=200 style="float:left";>
-    <h3 style="display: inline;padding-left:200px ;" >Reviews</h3>
-  </div>
-  </div>
-
-</div>
     <!-- Button trigger modal -->
     <!--Just a comment-->
     <script>
