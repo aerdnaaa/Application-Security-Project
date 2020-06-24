@@ -21,26 +21,31 @@ c = conn.cursor()
 #     name text,
 #     image text,
 #     description text,
-#     price real
+#     price real,
+#     category text
 #     )""")
 # conn.commit()
 # conn.close()
 # print('table created')
 
 # Insert Row
-# c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'barbell.PNG', '2.2m Olympic Barbell', 130)")
-# c.execute("INSERT INTO products VALUES ('Bench', 'bench.PNG', 'Incline Bench', 60)")
-# c.execute("INSERT INTO products VALUES ('Half Rack', 'halfrack.PNG', 'Half Rack. Good for squat.', 500)")
-# c.execute("INSERT INTO products VALUES ('Bumper Plates', 'rouge.PNG', 'Expensive bumper plates', 100)")
-# c.execute("INSERT INTO products VALUES ('Squat Rack', 'squat.PNG', 'Cheap and good', 130)")
+# c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'barbell.PNG', '2.2m Olympic Barbell', 130, 'barbell')")
+# c.execute("INSERT INTO products VALUES ('Bench', 'bench.PNG', 'Incline Bench', 60, 'bench')")
+# c.execute("INSERT INTO products VALUES ('Half Rack', 'halfrack.PNG', 'Half Rack. Good for squat.', 500, 'racks')")
+# c.execute("INSERT INTO products VALUES ('Bumper Plates', 'rouge.PNG', 'Expensive bumper plates', 100, 'plates')")
+# c.execute("INSERT INTO products VALUES ('Squat Rack', 'squat.PNG', 'Cheap and good', 130, 'racks')")
+# c.execute("INSERT INTO products VALUES ('Flat Bench', 'bench2.PNG', 'Flat bench. Good for benching', 90, 'bench')")
+# c.execute("INSERT INTO products VALUES ('Tri-grip Plates', 'nyp.PNG', 'Budget plates', 100, 'plates')")
+# c.execute("INSERT INTO products VALUES ('Trap Bar', 'trap.PNG', 'Good stuff', 200, 'barbell')")
 # conn.commit()
 # conn.close()
 # print('rows created')
 
 # Drop Table
-# c.execute("DROP TABLE users")
+# c.execute("DROP TABLE products")
 # conn.commit()
 # conn.close()
+# print('table dropped')
 
 # Query DB
 # c.execute("SELECT * FROM users WHERE username='' ")
@@ -50,8 +55,8 @@ c = conn.cursor()
 # c.execute("SELECT * FROM users WHERE username='JohnDoe' ")
 # user = c.fetchone()
 
-# c.execute("SELECT rowid, * FROM products")
-# print(c.fetchall())
+c.execute("SELECT rowid, * FROM products")
+print(c.fetchall())
 
 # To see table names
 # c.execute(" SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
