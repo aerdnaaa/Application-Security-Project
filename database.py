@@ -29,6 +29,17 @@ c = conn.cursor()
 # conn.close()
 # print('table created')
 
+# c.execute("""CREATE TABLE paymentdetails (
+#     username text,
+#     name text,
+#     ccnumber text,
+#     expiry text,
+#     cvv real
+#     )""")
+# conn.commit()
+# conn.close()
+# print('table created')
+
 # Insert Row
 # c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'barbell.PNG', '2.2m Olympic Barbell', 130, 'barbell', 1)")
 # c.execute("INSERT INTO products VALUES ('Bench', 'bench.PNG', 'Incline Bench', 60, 'bench', 1)")
@@ -41,6 +52,12 @@ c = conn.cursor()
 # conn.commit()
 # conn.close()
 # print('rows created')
+
+# JoO SeNg
+c.execute("INSERT INTO paymentdetials VALUES (usename, name, ccnumber, expiry, cvv)")
+conn.commit()
+conn.close()
+print('rows created')
 
 # Drop Table
 # c.execute("DROP TABLE products")
