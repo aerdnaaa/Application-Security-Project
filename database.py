@@ -53,8 +53,8 @@ c = conn.cursor()
 # conn.close()
 # print('rows created')
 
-# JoO SeNg
-c.execute("INSERT INTO paymentdetials VALUES (usename, name, ccnumber, expiry, cvv)")
+# JoO SeNg #ok
+c.execute("INSERT INTO paymentdetails VALUES (usename, name, ccnumber, expiry, cvv)")
 conn.commit()
 conn.close()
 print('rows created')
