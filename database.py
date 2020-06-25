@@ -54,10 +54,10 @@ c = conn.cursor()
 # print('rows created')
 
 # JoO SeNg #ok
-c.execute("INSERT INTO paymentdetails VALUES (username, name, ccnumber, expiry, cvv)")
-conn.commit()
-conn.close()
-print('rows created')
+# c.execute("INSERT INTO paymentdetails VALUES (username, name, ccnumber, expiry, cvv)")
+# conn.commit()
+# conn.close()
+# print('rows created')
 
 # Drop Table
 # c.execute("DROP TABLE products")
