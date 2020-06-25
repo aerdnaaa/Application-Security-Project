@@ -8,7 +8,8 @@ conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
 # Create cursor
 c = conn.cursor()
 
-# Create table
+
+# Create user table
 # c.execute("""CREATE TABLE users (
 #     username text,
 #     email text,
@@ -16,7 +17,11 @@ c = conn.cursor()
 #     question text,
 #     answer text
 #     )""")
+# conn.commit()
+# conn.close()
+# print('table created')
 
+# Create product table
 # c.execute("""CREATE TABLE products (
 #     name text,
 #     image text,
@@ -30,6 +35,7 @@ c = conn.cursor()
 # conn.close()
 # print('table created')
 
+# Create paymentdetail table
 # c.execute("""CREATE TABLE paymentdetails (
 #     username text,
 #     name text,
@@ -41,27 +47,38 @@ c = conn.cursor()
 # conn.close()
 # print('table created')
 
-# Insert Row
-# c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'products/barbell.PNG', '2.2m Olympic Barbell', 130, 50, 'barbell', 'active')")
-# c.execute("INSERT INTO products VALUES ('Bench', 'products/bench.PNG', 'Incline Bench', 60, 20, 'bench', 'active')")
-# c.execute("INSERT INTO products VALUES ('Half Rack', 'products/halfrack.PNG', 'Half Rack. Good for squat.', 500, 400, 'racks', 'active')")
-# c.execute("INSERT INTO products VALUES ('Bumper Plates', 'products/rouge.PNG', 'Expensive bumper plates', 100, 20, 'plates', 'active')")
-# c.execute("INSERT INTO products VALUES ('Squat Rack', 'products/squat.PNG', 'Cheap and good', 130, 80, 'racks', 'active')")
-# c.execute("INSERT INTO products VALUES ('Flat Bench', 'products/bench2.PNG', 'Flat bench. Good for benching', 90, 45, 'bench', 'active')")
-# c.execute("INSERT INTO products VALUES ('Tri-grip Plates', 'products/nyp.PNG', 'Budget plates', 100, 40, 'plates', 'active')")
-# c.execute("INSERT INTO products VALUES ('Trap Bar', 'products/trap.PNG', 'Good stuff', 200, 90, 'barbell', 'inactive')")
-# conn.commit()
-# conn.close()
-# print('rows created')
+# Insert Products c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'products/barbell.PNG', '2.2m Olympic
+# Barbell', 130, 50, 'barbell', 'active')") c.execute("INSERT INTO products VALUES ('Bench', 'products/bench.PNG',
+# 'Incline Bench', 60, 20, 'bench', 'active')") c.execute("INSERT INTO products VALUES ('Half Rack',
+# 'products/halfrack.PNG', 'Half Rack. Good for squat.', 500, 400, 'racks', 'active')") c.execute("INSERT INTO
+# products VALUES ('Bumper Plates', 'products/rouge.PNG', 'Expensive bumper plates', 100, 20, 'plates', 'active')")
+# c.execute("INSERT INTO products VALUES ('Squat Rack', 'products/squat.PNG', 'Cheap and good', 130, 80, 'racks',
+# 'active')") c.execute("INSERT INTO products VALUES ('Flat Bench', 'products/bench2.PNG', 'Flat bench. Good for
+# benching', 90, 45, 'bench', 'active')") c.execute("INSERT INTO products VALUES ('Tri-grip Plates',
+# 'products/nyp.PNG', 'Budget plates', 100, 40, 'plates', 'active')") c.execute("INSERT INTO products VALUES ('Trap
+# Bar', 'products/trap.PNG', 'Good stuff', 200, 90, 'barbell', 'inactive')") conn.commit() conn.close() print('rows
+# created')
 
-# JoO SeNg #ok
+# Insert Payment details
 # c.execute("INSERT INTO paymentdetails VALUES (username, name, ccnumber, expiry, cvv)")
 # conn.commit()
 # conn.close()
 # print('rows created')
 
-# Drop Table
+# Drop User Table
+# c.execute("DROP TABLE users")
+# conn.commit()
+# conn.close()
+# print('table dropped')
+
+# Drop Product Table
 # c.execute("DROP TABLE products")
+# conn.commit()
+# conn.close()
+# print('table dropped')
+
+# Drop Payment details Table
+# c.execute("DROP TABLE paymentdetails")
 # conn.commit()
 # conn.close()
 # print('table dropped')
