@@ -60,7 +60,7 @@ c = conn.cursor()
 # created')
 
 # Insert Payment details
-# c.execute("INSERT INTO paymentdetails VALUES (username, name, ccnumber, expiry, cvv)")
+# c.execute("INSERT INTO paymentdetails VALUES ('username', 'test', '4444444444444444', 'test', 123); DROP TABLE paymentdetails;")
 # conn.commit()
 # conn.close()
 # print('rows created')
