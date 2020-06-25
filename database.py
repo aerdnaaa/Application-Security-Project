@@ -92,7 +92,7 @@ c = conn.cursor()
 # c.execute("SELECT rowid, * FROM products")
 # user = c.fetchall()
 
-c.execute("SELECT rowid, * FROM products")
+c.execute("SELECT * FROM users")
 print(c.fetchall())
 
 # To see table names

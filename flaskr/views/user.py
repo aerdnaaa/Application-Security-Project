@@ -131,8 +131,11 @@ def recover(username):
             c.execute("UPDATE users SET password='{}' WHERE username='{}' ".format(recoverForm.password.data, username))
             conn.commit()
             conn.close()
-            # return redirect(url_for('user.signin'))
             flash("Password has been changed!", "success")
+            """
+            WEAK CODE
+            password'-- (change everyone's password)
+            """
         else:
             flash("Incorrect answer!", "error")
 

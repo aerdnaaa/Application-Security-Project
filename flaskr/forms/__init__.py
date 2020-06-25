@@ -1,5 +1,4 @@
-from wtforms import Form, StringField, TextAreaField, IntegerField, FileField, RadioField, FloatField, validators, \
-    PasswordField, SelectField, BooleanField, SubmitField
+from wtforms import Form, StringField, TextAreaField, IntegerField, FileField, RadioField, FloatField, validators, PasswordField, SelectField, BooleanField, SubmitField
 from wtforms.fields.html5 import EmailField, DateField
 import datetime
 
@@ -7,7 +6,7 @@ import datetime
 class Register(Form):
     username = StringField("Username", [validators.InputRequired(), validators.Length(min=1, max=150)])
     email = EmailField("Email", [validators.InputRequired(), validators.Email()])
-    password = PasswordField("Password", [validators.Length(min=8, max=150), validators.InputRequired()])
+    password = PasswordField("Password", [validators.InputRequired()])
     question = SelectField('Secruity Question', [validators.DataRequired()], choices=
                 [("What is the middle name of your mother?", "What is the middle name of your mother?"),
                 ("What is the name of your pet?", "What is the name of your pet?"), 
@@ -16,7 +15,7 @@ class Register(Form):
                 ("Where was the first place you went to on a plane?", "Where was the first place you went to on a plane?"),
                 ("What is the name of your favourite teacher?", "What is the name of your favourite teacher?")], 
                 default="What is the middle name of your mother?")
-    answer = StringField("Answer", [validators.InputRequired(), validators.Length(min=1, max=150)])
+    answer = StringField("Answer", [validators.InputRequired()])
 
 
 class SignIn(Form):
@@ -28,8 +27,7 @@ class Forget(Form):
 
 class Recover(Form):
     answer = StringField("Answer", [validators.InputRequired()])
-    password = PasswordField("New Password", [validators.Length(min=8, max=150), validators.InputRequired()])
-
+    password = PasswordField("New Password", [validators.InputRequired()])
 
 class ContactUs(Form):
     name = StringField('Name', [validators.Length(max=50), validators.InputRequired()])
