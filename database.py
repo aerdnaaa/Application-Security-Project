@@ -89,11 +89,11 @@ c = conn.cursor()
 # print(c.fetchall())
 # conn.close()
 
-# c.execute("SELECT * FROM users WHERE username='JohnDoe' ")
-# user = c.fetchone()
-
 # c.execute("SELECT rowid, * FROM products")
-# print(c.fetchall())
+# user = c.fetchall()
+
+c.execute("SELECT rowid, * FROM products")
+print(c.fetchall())
 
 # To see table names
 # c.execute(" SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
