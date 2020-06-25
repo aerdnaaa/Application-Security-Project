@@ -47,6 +47,33 @@ c = conn.cursor()
 # conn.close()
 # print('table created')
 
+# Create Review Table
+# c.execute("""
+#     CREATE TABLE reviews (
+#         productid integer,
+#         username text,
+#         review text
+#     )""")
+# conn.commit()
+# conn.close()
+# print('table created')
+
+# Drop Product Table
+# c.execute("DROP TABLE reviews")
+# conn.commit()
+# conn.close()
+# print('table dropped')
+
+# c.execute("INSERT INTO reviews VALUES (1, 'JohnDoe', 'Lmao this is some good shet')")
+# c.execute("INSERT INTO reviews VALUES (2, 'JohnDoe', 'this thing aint good not worth my money')")
+# c.execute("INSERT INTO reviews VALUES (3, 'JohnDoe', 'useless tool. do not buy')")
+# c.execute("""
+# INSERT INTO reviews VALUES (4, "JohnDoe", "<script>alert('test');</script>")
+# """)
+# conn.commit()
+# conn.close()
+# print('rows inserted')
+
 # Insert Products c.execute("INSERT INTO products VALUES ('Olympic Barbell', 'products/barbell.PNG', '2.2m Olympic
 # Barbell', 130, 50, 'barbell', 'active')") c.execute("INSERT INTO products VALUES ('Bench', 'products/bench.PNG',
 # 'Incline Bench', 60, 20, 'bench', 'active')") c.execute("INSERT INTO products VALUES ('Half Rack',
@@ -89,8 +116,8 @@ c = conn.cursor()
 # print(c.fetchall())
 # conn.close()
 
-# c.execute("SELECT rowid, * FROM products")
-# user = c.fetchall()
+# c.execute("SELECT * FROM reviews")
+# print(c.fetchall())
 
 # c.execute("SELECT * FROM users")
 # print(c.fetchall())

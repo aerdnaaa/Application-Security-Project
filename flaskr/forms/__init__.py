@@ -45,5 +45,8 @@ class PaymentOptions(Form):
     ExpiryDate = DateField("Expiry Date",[validators.InputRequired()], format='%Y-%m-%d')
     SecretNumber = PasswordField("CCV", [validators.Length(min=3,max=3)])
 
+class Reviews(Form):
+    reviews = StringField("Reviews", [validators.InputRequired()])
+
 
 

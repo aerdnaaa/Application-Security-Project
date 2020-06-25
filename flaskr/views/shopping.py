@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for
 from flaskr.models.User import User
-from flaskr.forms import SearchForm
+from flaskr.forms import SearchForm, Reviews
 import sqlite3, os
 from flaskr import file_directory
 
