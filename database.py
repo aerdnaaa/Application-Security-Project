@@ -47,18 +47,18 @@ c = conn.cursor()
 # conn.close()
 # print('table created')
 
-# Create Review Table
+#Create Review Table
 # c.execute("""
 #     CREATE TABLE reviews (
 #         productid integer,
-#         username text,
-#         review text
+#         username blob,
+#         review blob
 #     )""")
 # conn.commit()
 # conn.close()
 # print('table created')
 
-# Drop Product Table
+# #Drop Product Table
 # c.execute("DROP TABLE reviews")
 # conn.commit()
 # conn.close()
