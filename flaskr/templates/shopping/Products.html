@@ -140,12 +140,29 @@
                   <h6 style="text-align: center;">${{ i[4] }}</h6>
             </div>
           </div>
+
+          <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div>
+              <img class="img-fluid" src="/static/img/{{i[2]}}" height=200 width=200 style="float:left";>
+              <h3 style="display: inline;padding-left:200px ;" >Reviews</h3>
+            </div>
+            </div>
+          
+          </div>
         {% endif %}
       {% endfor %}
 
     </div>
   </div>
 
+  <!-- The Modal -->
+
+    <!-- Button trigger modal -->
+    <!--Just a comment-->
     <script>
           /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
           function openNav() {
@@ -166,7 +183,23 @@
           document.body.style.backgroundColor = "white";
           }
 
+          var modal = document.getElementById("myModal");
+          var btn = document.getElementById("Mybtn");
+          var span = document.getElementsByClassName("close")[0];
+          btn.onclick = function() {
+            modal.style.display = "block";
+          }
+          span.onclick = function() {
+            modal.style.display = "none";
+          }
+          window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+            }
+            }
+
     </script>
+
 {% endblock %}
 
 {% block scripts %}

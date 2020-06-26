@@ -11,7 +11,8 @@ def admin():
 
 @admin_blueprint.route("/Admin/add_product")
 def add_product():
-    return render_template("admin/Add_Product.html", title="Add Product")
+    category_list = ['barbell', 'bench', 'racks', 'plates']
+    return render_template("admin/Add_Product.html", title="Add Product", category_list=category_list)
 
 
 @admin_blueprint.route("/Admin/show_product")
