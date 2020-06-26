@@ -44,12 +44,14 @@ def signin():
     if request.method == "POST" and signin.validate():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
-        # Weak code (Not validating user inpuat)
-        # POSSIBLE ATTACKS
-        # ' or 1=1-- (login to admin account)
-        # user'-- (login to any account)
-        # ' or rowid=1-- (login to any account)
-        # ZAP' OR '1'='1' --
+        """
+        Weak code (Not validating user inpuat)
+        POSSIBLE ATTACKS
+        ' or 1=1-- (login to admin account)
+        user'-- (login to any account)
+        ' or rowid=1-- (login to any account)
+        ZAP' OR '1'='1' --
+        """
         c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
         conn.commit()
         user = c.fetchone()

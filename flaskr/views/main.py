@@ -31,8 +31,15 @@ def About():
         user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
     else:
         user = None
+    
+    conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+    c = conn.cursor()
 
-    return render_template("main/About.html", user=user)
+    c.execute("SELECT * FROM reviews WHERE productid=5")
+    product = c.fetchone()
+    conn.close()
+
+    return render_template("main/About.html", user=user, product=product)
 
 
 @main_blueprint.route("/FAQ")

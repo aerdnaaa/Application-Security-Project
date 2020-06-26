@@ -68,7 +68,7 @@ c = conn.cursor()
 # c.execute("INSERT INTO reviews VALUES (2, 'JohnDoe', 'this thing aint good not worth my money')")
 # c.execute("INSERT INTO reviews VALUES (3, 'JohnDoe', 'useless tool. do not buy')")
 # c.execute("""
-# INSERT INTO reviews VALUES (4, "JohnDoe", "<script>alert('test');</script>")
+# INSERT INTO reviews VALUES (5, "JohnDoe", "<a href='www.google.com'>test</a>")
 # """)
 # conn.commit()
 # conn.close()
