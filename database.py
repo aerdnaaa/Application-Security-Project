@@ -51,8 +51,8 @@ c = conn.cursor()
 # c.execute("""
 #     CREATE TABLE reviews (
 #         productid integer,
-#         username blob,
-#         review blob
+#         username text,
+#         review text
 #     )""")
 # conn.commit()
 # conn.close()

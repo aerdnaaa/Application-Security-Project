@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, make_response
 from flaskr.models.User import User
-from flaskr.forms import ContactUs
+from flaskr.forms import ContactUs, Reviews
 import sqlite3, os
 from flaskr import file_directory
 
@@ -69,6 +69,7 @@ def reviews(productid):
     else:
         user = None
 
+    reviewsform = Reviews(request.form)
     conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
     c = conn.cursor()
     c.execute("SELECT rowid,* FROM products WHERE rowid={}".format(productid))
@@ -78,5 +79,5 @@ def reviews(productid):
     reviews=c.fetchall()
     conn.close()
 
-
-    return render_template("main/Reviews.html", user=user, product=product, reviews=reviews)
+    
+    return render_template("main/Reviews.html", user=user, product=product, reviews=reviews, form=reviewsform)
