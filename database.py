@@ -47,18 +47,18 @@ c = conn.cursor()
 # conn.close()
 # print('table created')
 
-# Create Review Table
+#Create Review Table
 # c.execute("""
 #     CREATE TABLE reviews (
 #         productid integer,
-#         username text,
-#         review text
+#         username blob,
+#         review blob
 #     )""")
 # conn.commit()
 # conn.close()
 # print('table created')
 
-# Drop Product Table
+# #Drop Product Table
 # c.execute("DROP TABLE reviews")
 # conn.commit()
 # conn.close()
@@ -67,8 +67,9 @@ c = conn.cursor()
 # c.execute("INSERT INTO reviews VALUES (1, 'JohnDoe', 'Lmao this is some good shet')")
 # c.execute("INSERT INTO reviews VALUES (2, 'JohnDoe', 'this thing aint good not worth my money')")
 # c.execute("INSERT INTO reviews VALUES (3, 'JohnDoe', 'useless tool. do not buy')")
+# c.execute("INSERT INTO reviews VALUES (7, 'JohnDoe', 'test comment')")
 # c.execute("""
-# INSERT INTO reviews VALUES (5, "JohnDoe", "<a href='www.google.com'>test</a>")
+# INSERT INTO reviews VALUES (4, "JohnDoe", "Your site has a problem<script>alert('XSS')</script>")
 # """)
 # conn.commit()
 # conn.close()
