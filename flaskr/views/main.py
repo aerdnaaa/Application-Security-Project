@@ -35,7 +35,7 @@ def About():
     conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
     c = conn.cursor()
 
-    c.execute("SELECT * FROM reviews WHERE productid=5")
+    c.execute("SELECT * FROM reviews WHERE productid=4")
     product = c.fetchone()
     conn.close()
 
