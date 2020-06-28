@@ -77,7 +77,10 @@ def reviews(productid):
 
     c.execute("SELECT * FROM reviews")
     reviews=c.fetchall()
-    conn.close()
 
+    if request.method == "POST" and reviewsform.validate():
+        c.execute("""INSERT INTO reviews VALUES ("{}", "{}", "{}")""".format(product[0], user.get_username(), reviewsform.reviews.data)) 
+        conn.commit()
+        return redirect(url_for('main.reviews', productid=productid))
     
     return render_template("main/Reviews.html", user=user, product=product, reviews=reviews, form=reviewsform)

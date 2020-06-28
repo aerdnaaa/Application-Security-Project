@@ -22,18 +22,21 @@
             <p class="card-text">{{ product[3] }}</p>
             <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
             4.0 stars
-            <p class="card-text">
+            <h5>Reviews</h5>
+            <table class="table">
+              <tbody>
                 {% for jesus in reviews %}
-                    {% if jesus[0] == product[0] %}
-                        {{jesus[1]}}:{{jesus[2]}}
-                    {% endif %}
+                {% if jesus[0] == product[0] %}
+                <tr>
+                  <th scope="row">{{jesus[1]}}</th>
+                  <td>{{jesus[2]}}</td>
+                </tr>
+                {% endif %}
                 {% endfor %}
-                <!-- <script>
-                    alert('test');
-                </script> -->
-            </p>
+              </tbody>
+            </table>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Launch demo modal
+                Add Review
               </button>
 
         <!-- /.card -->
