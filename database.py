@@ -73,6 +73,29 @@ c = conn.cursor()
 # print('table created')
 
 
+# Create
+# c.execute("""
+#     CREATE TABLE user_vouchers (
+#         name text,
+#         code text UNIQUE,
+#         description text,
+#         amount real,
+#         status text,
+#         used_date text,
+#         user_id integer
+#     )""")
+# conn.commit()
+# conn.close()
+# print('table created')
+
+
+# Insert User Voucher
+# c.execute("INSERT INTO user_vouchers VALUES ('Sign Up Promo!', 'SIGNUP9012', 'You get a free $10 off voucher when you first signed up. Used the code to get $10 off your first purchase.', 10.0, 'unused', '', 1)")
+# # conn.commit()
+# # conn.close()
+# # print('rows inserted')
+
+
 # Insert Reviews
 # c.execute("INSERT INTO reviews VALUES (1, 'JohnDoe', 'Lmao this is some good shet')")
 # c.execute("INSERT INTO reviews VALUES (2, 'JohnDoe', 'this thing aint good not worth my money')")
@@ -107,11 +130,11 @@ c = conn.cursor()
 
 
 # Insert Voucher details
-c.execute("""
-INSERT INTO vouchers VALUES ('$10 OFF', 'vouchers/$10off.jpg', '10OFF', '$10 off your purchase', 10.0, 'active')""")
-conn.commit()
-conn.close()
-print('rows created')
+# c.execute("""
+# INSERT INTO vouchers VALUES ('$10 OFF', 'vouchers/$10off.jpg', '10OFF', '$10 off your purchase', 10.0, 'active')""")
+# conn.commit()
+# conn.close()
+# print('rows created')
 
 # Drop User Table
 # c.execute("DROP TABLE users")
@@ -170,4 +193,3 @@ print('rows created')
 # c.execute("SELECT * FROM users WHERE username='' UNION SELECT sql, '2', '3', '4', '5' FROM sqlite_master-- ")
 # print(c.fetchone())
 
-conn.close()
