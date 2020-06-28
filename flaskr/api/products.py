@@ -22,8 +22,8 @@ class Products(Resource):
         product_name = request.form.get('productNameInput')
         product_img = request.files.get('productImage')
         product_description = request.form.get('productDescription')
-        product_selling_price = request.form.get('productSellingPrice')
-        product_cost_price = request.form.get('productCostPrice')
+        product_selling_price = request.form.get('productSellingPriceInput')
+        product_cost_price = request.form.get('productCostPriceInput')
         product_category = request.form.get('productCategory')
 
         filename = product_img.filename
@@ -49,7 +49,7 @@ class Products(Resource):
 
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
-        c.execute(f"UPDATE products SET product_status = '{product_status}' WHERE product_name = '{product_name}'")
+        c.execute(f"UPDATE products SET status = '{product_status}' WHERE name = '{product_name}'")
         conn.commit()
 
         return jsonify(data="Success")

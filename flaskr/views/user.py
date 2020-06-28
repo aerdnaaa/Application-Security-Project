@@ -188,3 +188,13 @@ def PaymentRoute():
         else:
             flash('Only can store 1 card detail')
     return render_template("user/Payment.html", user=user, form=payment_form, payment_details=payment_details)
+
+
+@user_blueprint.route("/Voucher")
+def Voucher():
+    if 'username' in session:
+        user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
+    else:
+        return redirect(url_for('user.signin'))
+
+    return render_template("user/Voucher.html", title="Vouchers", user=user)
