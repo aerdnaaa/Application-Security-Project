@@ -21,22 +21,23 @@ def ShoppingCart():
 
     return render_template("shopping/ShoppingCart.html", user=user, cart=cart)
 
+
 @shopping_blueprint.route("/Add/<productID>")
 def addToCart(productID):
     if 'cart' in session:
         cart = session['cart']
     else:
         cart = []
-    
+
     conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
     c = conn.cursor()
     c.execute(" SELECT * FROM products WHERE rowid='{}' ".format(productID))
     item = c.fetchone()
     conn.close()
-    
+
     cart.append(item)
     session['cart'] = cart
-    
+
     return redirect(url_for('shopping.ShoppingCart'))
 
 
@@ -53,13 +54,14 @@ def Products():
     c.execute("SELECT rowid, * FROM products")
     products = c.fetchall()
     conn.close()
-    
+
     search = SearchForm(request.form)
     if request.method == "POST":
         # Pass product into url directly (Weak code)
         return redirect(url_for('shopping.Search', product=search.Search.data))
 
     return render_template("shopping/Products.html", user=user, form=search, products=products)
+
 
 @shopping_blueprint.route("/Search/<product>", methods=['POST', 'GET'])
 def Search(product):
@@ -103,3 +105,12 @@ def Search(product):
         return redirect(url_for('shopping.Search', product=form.Search.data))
 
     return render_template("shopping/Search.html", user=user, products=results, search=product, form=form)
+
+
+@shopping_blueprint.route("/Vouchers")
+def vouchers():
+    if 'username' in session:
+        user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
+    else:
+        user = None
+    return render_template("shopping/Vouchers.html", user=user)
