@@ -97,7 +97,7 @@ c = conn.cursor()
 
 
 # Insert Reviews
-# c.execute("INSERT INTO reviews VALUES (1, 'JohnDoe', 'Lmao this is some good shet')")
+# c.execute("INSERT INTO reviews VALUES (1, 'JohnDoe', 'Lmao this is some good stuff')")
 # c.execute("INSERT INTO reviews VALUES (2, 'JohnDoe', 'this thing aint good not worth my money')")
 # c.execute("INSERT INTO reviews VALUES (3, 'JohnDoe', 'useless tool. do not buy')")
 # c.execute("INSERT INTO reviews VALUES (7, 'JohnDoe', 'test comment')")
