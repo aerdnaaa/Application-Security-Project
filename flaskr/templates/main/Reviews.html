@@ -25,11 +25,11 @@
             <h5>Reviews</h5>
             <table class="table">
               <tbody>
-                {% for jesus in reviews %}
-                {% if jesus[0] == product[0] %}
+                {% for j in reviews %}
+                {% if j[0] == product[0] %}
                 <tr>
-                  <th scope="row">{{jesus[1]}}</th>
-                  <td>{{jesus[2]}}</td>
+                  <th scope="row">{{j[1]}}</th>
+                  <td>{{j[2]}}</td>
                 </tr>
                 {% endif %}
                 {% endfor %}
