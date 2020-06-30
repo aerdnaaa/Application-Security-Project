@@ -3,7 +3,6 @@ import os, datetime
 DEBUG = True
 SECRET_KEY = 'WeakSecret'
 SESSION_COOKIE_HTTPONLY = False
-SESSION_COOKIE_SECURE = False
 PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=365)
 JWT_SECRET_KEY = 'super-secret'
 MAIL_SERVER ='smtp.mailtrap.io'

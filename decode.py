@@ -1,4 +1,7 @@
 import base64
 import zlib
 
-print(zlib.decompress(base64.urlsafe_b64decode('enter cookie===')))
+def decodeSession(session):
+    print(zlib.decompress(base64.urlsafe_b64decode('{}==='.format(session))))
+
+decodeSession('')

@@ -58,11 +58,10 @@ def signin():
 
         # Weak Code (disclosing too much information)
         if user == None:
-            if c.execute(
-                    "SELECT username FROM users WHERE username='{}'".format(signin.username.data)).fetchone() != None:
+            if c.execute("SELECT username FROM users WHERE username='{}'".format(signin.username.data)).fetchone() != None:
                 flash("Incorrect password")
             else:
-                flash("Incorrect username")
+                flash("Username does not exist")
 
         elif user[0] == "Admin":
             # Weak code: Store confidential info in session
