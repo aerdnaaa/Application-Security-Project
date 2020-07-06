@@ -15,7 +15,8 @@ c = conn.cursor()
 #     email text,
 #     password text,
 #     question text,
-#     answer text
+#     answer text,
+#     admin text
 #     )""")
 # conn.commit()
 # conn.close()
@@ -88,12 +89,30 @@ c = conn.cursor()
 # conn.close()
 # print('table created')
 
+#Create query table
+# c.execute("""CREATE TABLE query (
+#     name text,
+#     email text,
+#     subject text,
+#     message text
+#     )""")
+# conn.commit()
+# conn.close()
+# print('table created')
+
 
 # Insert User Voucher
 # c.execute("INSERT INTO user_vouchers VALUES ('Sign Up Promo!', 'SIGNUP9012', 'You get a free $10 off voucher when you first signed up. Used the code to get $10 off your first purchase.', 10.0, 'unused', '', 1)")
 # # conn.commit()
 # # conn.close()
 # # print('rows inserted')
+
+# Insert User 
+#c.execute("INSERT INTO users VALUES ('Admin', 'Admin@mail.com', 'admin', 'what is your mother name', 'joe','y')")
+# c.execute("INSERT INTO users VALUES ('jooseng', 'Admin@mail.com', 'jooseng', 'what is your mother name', 'joe','y')")
+# conn.commit()
+# conn.close()
+# print('rows inserted')
 
 
 # Insert Reviews
@@ -180,8 +199,8 @@ c = conn.cursor()
 # c.execute("SELECT * FROM reviews")
 # print(c.fetchall())
 
-# c.execute("SELECT * FROM users")
-# print(c.fetchall())
+# c.execute("""SELECT * FROM users WHERE username='Admin' AND password='admin' """)
+# print(c.fetchone())
 
 # To see table names
 # c.execute(" SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")

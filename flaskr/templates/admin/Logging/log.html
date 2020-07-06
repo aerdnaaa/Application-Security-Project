@@ -1,0 +1,24 @@
+{% extends "admin/baseAdmin.html" %}
+
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    let token = "e96e83862dab40a0ad31c8c9caa963b8741acd8ee1304f1b9d2e37776d78c27f";
+    $.ajax({
+        url: "https://sentry.io/api/0/projects/indirect-bi/indirect-bi/issues/",
+        type: "GET",
+        crossDomain: true,
+        dataType: 'jsonp',
+        headers: {"Authorization": `Bearer {token}`},
+        success: function (result) {
+            console.log(result);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+</script>
+    
+    
+{% endblock %}

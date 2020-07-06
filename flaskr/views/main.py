@@ -58,8 +58,15 @@ def emailus():
         user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
     else:
         user = None
-        
     contactUsForm = ContactUs(request.form)
+    conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+    c = conn.cursor()
+    if request.method == "POST" and contactUsForm.validate():
+        
+        c.execute("""INSERT INTO query VALUES ("{}", "{}", "{}","{}")""".format(contactUsForm.name.data,contactUsForm.email.data,contactUsForm.subject.data,contactUsForm.message.data)) 
+        conn.commit()
+        conn.close()
+        return redirect(url_for('main.emailus'))
     return render_template("main/Emailus.html", user=user, form=contactUsForm)
 
 @main_blueprint.route("/Reviews/<productid>", methods=["GET", "POST"])

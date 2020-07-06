@@ -23,7 +23,7 @@ def register():
         if c.execute(
             "SELECT username FROM users WHERE username='{}' ".format(register.username.data)).fetchone() == None:
             # Weak code (Not validating user input)
-            c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data, register.question.data, register.answer.data))   
+            c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data, register.question.data, register.answer.data, 'n'))   
             conn.commit()
             conn.close()
             return redirect(url_for('user.signin'))
@@ -52,18 +52,19 @@ def signin():
         ' or rowid=1-- (login to any account)
         ZAP' OR '1'='1' --
         """
-        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
+        c.execute("""SELECT * FROM users WHERE username="{}" AND password="{}" """.format(signin.username.data, signin.password.data))
         conn.commit()
         user = c.fetchone()
 
         # Weak Code (disclosing too much information)
         if user == None:
-            if c.execute("SELECT username FROM users WHERE username='{}'".format(signin.username.data)).fetchone() != None:
+            if c.execute("""SELECT username FROM users WHERE username="{}" """.format(signin.username.data)).fetchone() != None:
                 flash("Incorrect password")
             else:
                 flash("Username does not exist")
 
-        elif user[0] == "Admin":
+        # Check if user is admin
+        elif user[5] == "y":
             # Weak code: Store confidential info in session
             session['username'] = user[0]
             session['email'] = user[1]
@@ -72,6 +73,7 @@ def signin():
             session['answer'] = user[4]
             return redirect(url_for('admin.admin'))
 
+        # If user is not admin
         else:
             # Weak code: Store confidential info in session
             session['username'] = user[0]

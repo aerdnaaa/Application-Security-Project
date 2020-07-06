@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template
+import sqlite3, os
+from flaskr import file_directory
 
 admin_blueprint = Blueprint('admin', __name__)
 
@@ -28,3 +30,19 @@ def show_voucher():
 @admin_blueprint.route("/Admin/add_voucher")
 def add_voucher():
     return render_template("admin/Vouchers/Add_Voucher.html", title="Add Voucher")
+
+
+@admin_blueprint.route("/manage_user")
+def manage_user():
+    conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+    c = conn.cursor()
+
+    c.execute("SELECT rowid, * FROM users")
+    users = c.fetchall()
+    conn.close()
+    return render_template("admin/Manage_Users/manage_user.html", title="users",users=users)
+
+
+@admin_blueprint.route("/logs")
+def logs():
+    return render_template("admin/Logging/log.html", title="Logs")
