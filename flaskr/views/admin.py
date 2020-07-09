@@ -42,6 +42,16 @@ def manage_user():
     conn.close()
     return render_template("admin/Manage_Users/manage_user.html", title="users",users=users)
 
+@admin_blueprint.route("/Queries")
+def Queries():
+    conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+    c = conn.cursor()
+
+    c.execute("SELECT rowid, * FROM query")
+    query = c.fetchall()
+    conn.close()
+    return render_template("admin/Query/Queries.html", title="query",query=query)
+
 
 @admin_blueprint.route("/logs")
 def logs():
