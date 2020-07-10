@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-import sqlite3, os
+import sqlite3, os, requests
 from flaskr import file_directory
 
 admin_blueprint = Blueprint('admin', __name__)
@@ -40,7 +40,8 @@ def manage_user():
     c.execute("SELECT rowid, * FROM users")
     users = c.fetchall()
     conn.close()
-    return render_template("admin/Manage_Users/manage_user.html", title="users",users=users)
+    return render_template("admin/Manage_Users/manage_user.html", title="users", users=users)
+
 
 @admin_blueprint.route("/Queries")
 def Queries():
@@ -50,9 +51,14 @@ def Queries():
     c.execute("SELECT rowid, * FROM query")
     query = c.fetchall()
     conn.close()
-    return render_template("admin/Query/Queries.html", title="query",query=query)
+    return render_template("admin/Query/Queries.html", title="query", query=query)
 
 
 @admin_blueprint.route("/logs")
 def logs():
-    return render_template("admin/Logging/log.html", title="Logs")
+    token = "e96e83862dab40a0ad31c8c9caa963b8741acd8ee1304f1b9d2e37776d78c27f"
+    url = "https://sentry.io/api/0/projects/indirect-bi/indirect-bi/issues/"
+    header = {"Authorization": f"Bearer {token}"}
+    my_response = requests.get(url, headers=header)
+    data = my_response.json()
+    return render_template("admin/Logging/log.html", title="Logs", data=data)
