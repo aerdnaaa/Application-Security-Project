@@ -62,24 +62,10 @@ c = conn.cursor()
 # Create Vouchers Table
 # c.execute("""
 #     CREATE TABLE vouchers (
-#         name text,
-#         image text,
+#         title text,
 #         code text,
 #         description text,
-#         amount real,
-#         status text
-#     )""")
-# conn.commit()
-# conn.close()
-# print('table created')
-
-
-# Create
-# c.execute("""
-#     CREATE TABLE user_vouchers (
-#         name text,
-#         code text UNIQUE,
-#         description text,
+#         image_path text,
 #         amount real,
 #         status text,
 #         used_date text,
@@ -88,6 +74,8 @@ c = conn.cursor()
 # conn.commit()
 # conn.close()
 # print('table created')
+
+
 
 #Create query table
 # c.execute("""CREATE TABLE query (

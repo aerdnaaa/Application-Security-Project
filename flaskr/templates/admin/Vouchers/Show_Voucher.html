@@ -23,7 +23,7 @@
     <section class="content">
         <div class="container-fluid">
             <table class="table">
-                <thead>
+                <thead class="thead-light">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
@@ -61,7 +61,7 @@
         }
 
         function write_data_to_table(data) {
-            let column_list = ["voucherName", "voucherImage", "voucherCode", "voucherDescription", "voucherAmount"]
+            let column_list = ["title", "image_path", "code", "description", "amount"]
             let tbody = document.getElementsByClassName("tbody")[0];
             while (tbody.firstChild) {
                 tbody.firstChild.remove();
@@ -74,10 +74,11 @@
                 tr.appendChild(th);
                 for (const value of column_list) {
                     let td = document.createElement("td");
-                    if (value == "voucherImage") {
+                    if (value == "image_path") {
                         let img = document.createElement("img");
                         img.setAttribute("src", "/static/img/" + data[i][value])
                         img.setAttribute("class", "img-fluid")
+                        img.setAttribute("width", "250px")
                         td.appendChild(img)
                     } else {
                         td.innerText = data[i][value];
