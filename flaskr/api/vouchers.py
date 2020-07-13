@@ -63,7 +63,7 @@ class Vouchers(Resource):
 
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
-        c.execute(f"UPDATE vouchers SET status = '{voucher_status}' WHERE name = '{voucher_name}'")
+        c.execute(f"UPDATE vouchers SET status = '{voucher_status}' WHERE title = '{voucher_name}'")
         conn.commit()
 
         return jsonify(data="Success. Voucher Status Updated.")
