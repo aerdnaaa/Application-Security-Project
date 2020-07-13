@@ -2,6 +2,7 @@
 {% block title %}Search{% endblock %}
 
 {% block header %}
+
 <link rel="stylesheet" href="{{url_for('static',filename='css/Products.css')}}">
 <style>
 /* Centered text */
@@ -28,6 +29,7 @@
 
 {% block content %}
 {% from "includes/_formhelper.html" import render_field %}
+{% autoescape false %}
  
 <div>
 <div id="mySidenav" class="sidenav" style='background-color:white;'>
@@ -126,7 +128,7 @@
           }
 
     </script>
-
+{% endautoescape %}
 {% endblock %}
 
 {% block scripts %}
@@ -148,4 +150,5 @@ function display(icon){
     icon.children[1].children[1].children[0].setAttribute('class', "fas fa-eye fa-2x icon");
   }
 </script>
+
 {% endblock %}
