@@ -45,20 +45,20 @@ def signin():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
         """
-        Weak code (Not validating user inpuat)
+        Weak code (Not validating user input)
         POSSIBLE ATTACKS
         ' or 1=1-- (login to admin account)
         user'-- (login to any account)
         ' or rowid=1-- (login to any account)
         ZAP' OR '1'='1' --
         """
-        c.execute("""SELECT * FROM users WHERE username="{}" AND password="{}" """.format(signin.username.data, signin.password.data))
+        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
         conn.commit()
         user = c.fetchone()
 
         # Weak Code (disclosing too much information)
         if user == None:
-            if c.execute("""SELECT username FROM users WHERE username="{}" """.format(signin.username.data)).fetchone() != None:
+            if c.execute("SELECT username FROM users WHERE username='{}' ".format(signin.username.data)).fetchone() != None:
                 flash("Incorrect password")
             else:
                 flash("Username does not exist")
