@@ -141,9 +141,11 @@
                         <div class="row mt-2">
                             <div class="col-6 mx-auto">
                                 <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Voucher</label>
+                                    <label for="voucher" class="col-sm-4 col-form-label">Voucher</label>
                                     <div class="col-sm-8">
-                                        <input type="email" class="form-control" id="inputEmail3" placeholder="Voucher Code">
+                                        <select class="form-control" id="voucher">
+                                            <option></option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -162,5 +164,36 @@
             </div>
         </div>
     </div>
+
+    <script>
+        load_data()
+
+        function load_data() {
+            let url = 'http://localhost:5000/api/vouchers';
+            let xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let product_array = JSON.parse(this.responseText);
+                    console.log(product_array)
+                    write_data(product_array.data)
+                }
+            };
+
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send()
+        }
+
+        function write_data(data) {
+            let selectForm = document.getElementById("voucher");
+            for (let i = 0; i < data.length; i++) {
+                if (data[i]["status"] == "active") {
+                    let option = document.createElement("option");
+                    option.text = data[i]["code"]
+                    selectForm.appendChild(option);
+                }
+            }
+        }
+    </script>
 {% endblock %}
 
