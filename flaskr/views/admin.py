@@ -32,6 +32,16 @@ def add_voucher():
     return render_template("admin/Vouchers/Add_Voucher.html", title="Add Voucher")
 
 
+@admin_blueprint.route("/Admin/add_user_voucher")
+def add_user_voucher():
+    conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+    c = conn.cursor()
+
+    c.execute("SELECT username FROM users WHERE admin <> 'y'")
+    users = c.fetchall()
+    return render_template("admin/Vouchers/Add_User_Voucher.html", title="Add User Voucher", users=users)
+
+
 @admin_blueprint.route("/manage_user")
 def manage_user():
     conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))

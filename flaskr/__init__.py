@@ -36,7 +36,7 @@ from flaskr.api.user_voucher import UserVoucher
 
 api_app.add_resource(Products, '/api/products')
 api_app.add_resource(Vouchers, '/api/vouchers')
-api_app.add_resource(UserVoucher, '/api/userVoucher/<user_id>')
+api_app.add_resource(UserVoucher, '/api/userVoucher/<username>')
 
 from flaskr.views.admin import admin_blueprint
 from flaskr.views.main import main_blueprint
