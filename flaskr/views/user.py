@@ -21,9 +21,13 @@ def register():
         conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
         if c.execute(
-            "SELECT username FROM users WHERE username='{}' ".format(register.username.data)).fetchone() == None:
+                "SELECT username FROM users WHERE username='{}' ".format(register.username.data)).fetchone() == None:
             # Weak code (Not validating user input)
-            c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}', '{}')".format(register.username.data, register.email.data, register.password.data, register.question.data, register.answer.data, 'n'))   
+            c.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}', '{}')".format(register.username.data,
+                                                                                             register.email.data,
+                                                                                             register.password.data,
+                                                                                             register.question.data,
+                                                                                             register.answer.data, 'n'))
             conn.commit()
             conn.close()
             return redirect(url_for('user.signin'))
@@ -52,13 +56,15 @@ def signin():
         ' or rowid=1-- (login to any account)
         ZAP' OR '1'='1' --
         """
-        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data, signin.password.data))
+        c.execute("SELECT * FROM users WHERE username='{}' AND password='{}' ".format(signin.username.data,
+                                                                                      signin.password.data))
         conn.commit()
         user = c.fetchone()
 
         # Weak Code (disclosing too much information)
         if user == None:
-            if c.execute("SELECT username FROM users WHERE username='{}' ".format(signin.username.data)).fetchone() != None:
+            if c.execute(
+                    "SELECT username FROM users WHERE username='{}' ".format(signin.username.data)).fetchone() != None:
                 flash("Incorrect password")
             else:
                 flash("Username does not exist")
@@ -150,45 +156,41 @@ def recover(username):
 def Profile():
     if 'username' in session:
         user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
-    else:
-        return redirect(url_for('user.signin'))
-
-    return render_template("user/Profile.html", user=user)
-
-@user_blueprint.route("/PaymentInfo", methods=["GET", "POST"])
-def PaymentRoute():
-    if 'username' in session:
-        user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
         # get payment information if have
-        conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
+        conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
         c.execute("SELECT * FROM paymentdetails WHERE username='{}' ".format(user.get_username()))
-        #self define paymentinformation and fetch one and return into payment information variable.
+        # self define paymentinformation and fetch one and return into payment information variable.
         paymentinformation = c.fetchone()
-        #get all the 4 attribute from the PaymentInfo.py
+        # get all the 4 attribute from the PaymentInfo.py
         if paymentinformation:
-            payment_details = PaymentInfo(paymentinformation[1],paymentinformation[2],paymentinformation[3],paymentinformation[4])
+            payment_details = PaymentInfo(paymentinformation[1], paymentinformation[2], paymentinformation[3],
+                                          int(paymentinformation[4]))
         else:
             payment_details = PaymentInfo("", "", "", "")
     else:
         return redirect(url_for('user.signin'))
 
     payment_form = PaymentOptions(request.form)
-    print(payment_form.validate())
     if request.method == "POST" and payment_form.validate():
         print("this code is running")
-        conn = sqlite3.connect(os.path.join(file_directory,"storage.db"))
+        conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
         c = conn.cursor()
         c.execute("SELECT * FROM paymentdetails WHERE username='{}' ".format(user.get_username()))
         result = c.fetchone()
         if not result:
-            c.execute("INSERT INTO paymentdetails VALUES ('{}','{}','{}','{}','{}')".format(user.get_username(),payment_form.Name.data,payment_form.CreditCardno.data,payment_form.ExpiryDate.data,payment_form.SecretNumber.data))
+            c.execute("INSERT INTO paymentdetails VALUES ('{}','{}','{}','{}','{}')".format(user.get_username(),
+                                                                                            payment_form.Name.data,
+                                                                                            payment_form.CreditCardno.data,
+                                                                                            payment_form.ExpiryDate.data,
+                                                                                            payment_form.SecretNumber.data))
             conn.commit()
             conn.close()
             return redirect(url_for('user.Profile'))
         else:
             flash('Only can store 1 card detail')
-    return render_template("user/Payment.html", user=user, form=payment_form, payment_details=payment_details)
+
+    return render_template("user/Profile.html", user=user, form=payment_form, payment_details=payment_details)
 
 
 @user_blueprint.route("/Voucher")
