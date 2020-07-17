@@ -14,7 +14,7 @@ class UserVoucher(Resource):
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
         # TODO change user_vouchers to vouchers table
-        c.execute("SELECT * FROM vouchers WHERE user_id = {}".format(username))
+        c.execute("SELECT * FROM vouchers WHERE user_id = '{}'".format(username))
         conn.commit()
         vouchers = [dict(row) for row in c.fetchall()]
         conn.close()
