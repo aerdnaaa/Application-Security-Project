@@ -6,6 +6,7 @@ class User:
         self.__password = password
         self.__question = question
         self.__answer = answer
+        self.__voucher = ""
 
     def get_username(self):
         return self.__username
@@ -27,3 +28,6 @@ class User:
 
     def set_password(self, password):
         self.__password = password
+
+    def set_voucher(self, voucher):
+        self.__voucher = voucher

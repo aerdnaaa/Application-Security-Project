@@ -139,15 +139,24 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-6 mx-auto">
+                            <div class="col-8 mx-auto">
                                 <div class="form-group row">
-                                    <label for="voucher" class="col-sm-4 col-form-label">Voucher</label>
-                                    <div class="col-sm-8">
+                                    <label for="voucher" class="col-sm-3 col-form-label">Voucher</label>
+                                    <div class="col-sm-6">
                                         <select class="form-control" id="voucher">
-                                            <option></option>
+                                            <option> </option>
                                         </select>
                                     </div>
+                                    <button class="col-sm-3 btn btn-sm btn-primary text-uppercase" onclick="apply_voucher()">Apply Voucher</button>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-6">
+                                Original Amount: {{ original_cost }}
+                            </div>
+                            <div class="col-sm-6">
+                                Result Amount: {{ result_cost }}
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -156,7 +165,7 @@
                                     Shopping</a>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                                <button class="btn btn-lg btn-block btn-success text-uppercase" onclick="checkout()">Checkout</button>
                             </div>
                         </div>
                     </div>
@@ -166,33 +175,68 @@
     </div>
 
     <script>
-        load_data()
-
-        function load_data() {
+        {% if user != None %}
+            load_data('{{user.get_username()}}')
+        {% else %}
+            load_data('')
+        {% endif %}
+        function load_data(username) {
             let url = 'http://localhost:5000/api/vouchers';
             let xmlhttp = new XMLHttpRequest();
 
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     let product_array = JSON.parse(this.responseText);
-                    console.log(product_array)
                     write_data(product_array.data)
                 }
             };
 
             xmlhttp.open("GET", url, true);
             xmlhttp.send()
+
+            if (username != '') {
+                let url2 = 'http://localhost:5000/api/userVoucher/' + username;
+                let xmlhttp = new XMLHttpRequest();
+
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        let product_array = JSON.parse(this.responseText);
+                        write_data(product_array.data)
+                    }
+                };
+
+                xmlhttp.open("GET", url2, true);
+                xmlhttp.send()
+            }
         }
 
         function write_data(data) {
             let selectForm = document.getElementById("voucher");
             for (let i = 0; i < data.length; i++) {
-                if (data[i]["status"] == "active") {
+                if (data[i]["status"] == "active" || data[i]["status"] == "unused") {
                     let option = document.createElement("option");
                     option.text = data[i]["code"]
                     selectForm.appendChild(option);
                 }
             }
+        }
+
+        function apply_voucher() {
+            let selectForm = document.getElementById("voucher");
+            let selectVoucherCode = selectForm.value;
+            let url =""
+            if (selectVoucherCode != "") {
+                url = "http://localhost:5000/apply_voucher/" + selectVoucherCode;
+            }
+            else {
+                url = "http://localhost:5000/apply_voucher/:";
+            }
+            window.location = url;
+        }
+
+        function checkout() {
+
+
         }
     </script>
 {% endblock %}

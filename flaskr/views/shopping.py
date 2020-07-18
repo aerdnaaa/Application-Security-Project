@@ -13,13 +13,36 @@ def ShoppingCart():
         user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
     else:
         user = None
+    original_cost = 0
 
     if 'cart' in session:
         cart = session['cart']
+        for item in cart:
+            original_cost += item[3]
     else:
         cart = []
 
-    return render_template("shopping/ShoppingCart.html", user=user, cart=cart)
+    result_cost = original_cost
+
+    if 'voucher' in session:
+        voucher_code = session['voucher']
+        conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
+        c = conn.cursor()
+        c.execute("SELECT amount from vouchers where code='{}'".format(voucher_code))
+        amount = c.fetchone()
+        result_cost -= amount[0]
+
+    return render_template("shopping/ShoppingCart.html", user=user, cart=cart, original_cost=original_cost, result_cost=result_cost)
+
+
+@shopping_blueprint.route("/apply_voucher/<voucher_code>")
+def apply_voucher(voucher_code):
+    if 'username' in session and voucher_code != ":":
+        session['voucher'] = voucher_code
+    else:
+        del session['voucher']
+
+    return redirect(url_for('shopping.ShoppingCart'))
 
 
 @shopping_blueprint.route("/Add/<productID>")
