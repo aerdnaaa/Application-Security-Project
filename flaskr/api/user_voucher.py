@@ -66,9 +66,15 @@ class UserVoucher(Resource):
             return jsonify(data=f"Voucher with the code {code} from username {username} has been used.")
 
         else:
-            conn.commit()
-            conn.close()
+            c.execute("SELECT * FROM vouchers WHERE code='{}' AND user_id=0".format(code))
+            if c.fetchone():
+                conn.commit()
+                conn.close()
+                return jsonify(data="This is a general voucher")
+            else:
+                conn.commit()
+                conn.close()
 
-            return jsonify(data=f"Voucher with the code {code} from username {username} has already been used.")
+                return jsonify(data=f"Voucher with the code {code} from username {username} has already been used.")
 
 

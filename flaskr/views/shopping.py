@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, session, request, redirect, url_for
+from flask import Blueprint, render_template, session, request, redirect, url_for, jsonify
 from flaskr.models.User import User
 from flaskr.forms import SearchForm, Reviews
-import sqlite3, os
+import sqlite3, os, requests
 from flaskr import file_directory
 
 shopping_blueprint = Blueprint('shopping', __name__)
@@ -31,18 +31,43 @@ def ShoppingCart():
         c.execute("SELECT amount from vouchers where code='{}'".format(voucher_code))
         amount = c.fetchone()
         result_cost -= amount[0]
+    else:
+        voucher_code = ""
 
-    return render_template("shopping/ShoppingCart.html", user=user, cart=cart, original_cost=original_cost, result_cost=result_cost)
+    return render_template("shopping/ShoppingCart.html", user=user, cart=cart, original_cost=original_cost,
+                           result_cost=result_cost, voucher_code=voucher_code)
 
 
 @shopping_blueprint.route("/apply_voucher/<voucher_code>")
 def apply_voucher(voucher_code):
     if 'username' in session and voucher_code != ":":
         session['voucher'] = voucher_code
-    else:
+    elif 'voucher' in session:
         del session['voucher']
 
     return redirect(url_for('shopping.ShoppingCart'))
+
+
+@shopping_blueprint.route("/checkout")
+def checkout():
+    if 'username' in session:
+        user = User(session['username'], session['email'], session['password'], session['question'], session['answer'])
+    else:
+        user = None
+
+    if 'username' in session and 'voucher' in session:
+        url = "http://localhost:5000/api/userVoucher/" + session["username"]
+        response = requests.put(url, json={"code": session["voucher"]})
+        data = response.json()["data"]
+        if data == "This is a general voucher":
+            data = ""
+    else:
+        data = ""
+
+    del session['cart']
+    if 'voucher' in session:
+        del session['voucher']
+    return render_template("shopping/Checkout.html", data=data, user=user)
 
 
 @shopping_blueprint.route("/Add/<productID>")

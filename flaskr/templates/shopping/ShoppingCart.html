@@ -165,7 +165,7 @@
                                     Shopping</a>
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button class="btn btn-lg btn-block btn-success text-uppercase" onclick="checkout()">Checkout</button>
+                                <a class="btn btn-lg btn-block btn-success text-uppercase" href="{{ url_for('shopping.checkout') }}">Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -176,18 +176,20 @@
 
     <script>
         {% if user != None %}
-            load_data('{{user.get_username()}}')
+            load_data('{{user.get_username()}}', '{{ voucher_code }}')
         {% else %}
-            load_data('')
+            load_data('', '')
         {% endif %}
-        function load_data(username) {
+
+
+        function load_data(username, voucher_code) {
             let url = 'http://localhost:5000/api/vouchers';
             let xmlhttp = new XMLHttpRequest();
 
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     let product_array = JSON.parse(this.responseText);
-                    write_data(product_array.data)
+                    write_data(product_array.data, voucher_code)
                 }
             };
 
@@ -201,21 +203,26 @@
                 xmlhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
                         let product_array = JSON.parse(this.responseText);
-                        write_data(product_array.data)
+                        write_data(product_array.data, voucher_code)
                     }
                 };
 
                 xmlhttp.open("GET", url2, true);
                 xmlhttp.send()
             }
+
         }
 
-        function write_data(data) {
+        function write_data(data, voucher_code) {
             let selectForm = document.getElementById("voucher");
             for (let i = 0; i < data.length; i++) {
                 if (data[i]["status"] == "active" || data[i]["status"] == "unused") {
                     let option = document.createElement("option");
-                    option.text = data[i]["code"]
+                    if (data[i]["code"] == voucher_code) {
+                        option.selected = "selected";
+                    }
+                    option.value = data[i]["code"];
+                    option.text = data[i]["code"];
                     selectForm.appendChild(option);
                 }
             }
@@ -234,10 +241,7 @@
             window.location = url;
         }
 
-        function checkout() {
 
-
-        }
     </script>
 {% endblock %}
 
