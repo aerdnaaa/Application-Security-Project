@@ -121,7 +121,7 @@ def Search(product):
     # For search
     conn = sqlite3.connect(os.path.join(file_directory, "storage.db"))
     c = conn.cursor()
-    c.execute("SELECT rowid, * FROM products WHERE name LIKE '%{}%' ".format(product))
+    c.execute("SELECT rowid, * FROM products WHERE name = '{}' ".format(product))
     results = c.fetchall()
     print(results)
     conn.close()
